@@ -1,0 +1,26 @@
+.header {
+    width:100%;
+    margin-top: 40px;
+}
+
+.header__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left:320px;
+    padding-right: 320px;
+}
+
+.navigation__list {
+    display: flex;
+}
+
+.navigation__element {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width:24px;
+    height: 24px;
+}
