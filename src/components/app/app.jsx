@@ -7,8 +7,8 @@ import BurgerConstructor from "../burger/constructor/constructor";
 import {} from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 
-class App extends React.Component {
-    render() {
+function App() {
+    
         return (
             <>
              <AppHeader/>
@@ -18,7 +18,6 @@ class App extends React.Component {
              </main>
             </>
         );
-    }
 }
 
 export default App;

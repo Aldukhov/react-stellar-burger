@@ -1,0 +1,18 @@
+import React, { useState } from 'react';
+import styles from './categories.module.css';
+import {} from '@ya.praktikum/react-developer-burger-ui-components'
+import classNames from 'classnames';
+import Tabmenu from '../Tab-menu/tab-menu';
+
+
+
+export default function Categories(props) {
+    return (
+      <section>
+        <h2 className={classNames("text text_type_main-large pt-10")}>Соберите бургер</h2>
+        <div className={classNames(styles.categories, 'pt-5 pb-10')}>
+          <Tabmenu scrollBun={props.scrollBun} scrollSauce = {props.scrollSauce} scrollMain = {props.scrollMain}/>
+        </div>
+      </section>
+    );
+  }
