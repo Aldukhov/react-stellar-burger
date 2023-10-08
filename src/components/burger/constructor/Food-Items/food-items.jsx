@@ -2,10 +2,11 @@ import React from 'react';
 import styles from './food-items.module.css';
 import {ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
-import { data } from '../../../../utils/data';
+import PropTypes from 'prop-types';
 
+export default function FoodItems(props) {
 
-export default function FoodItems() {
+    const data = props.data.data;
 
     return (
         <div className={styles['items-block']}>
@@ -39,184 +40,6 @@ export default function FoodItems() {
                     />
                 </div>
 
-                <div className={classNames(styles.item)}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type="main"
-                        isLocked={false}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={data[0].image}
-                        extraClass='ml-2 mt-4'
-                    />
-                </div>
-
-                <div className={classNames(styles.item)}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type="main"
-                        isLocked={false}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={data[0].image}
-                        extraClass='ml-2 mt-4'
-                    />
-                </div>
-
-
-                <div className={classNames(styles.item)}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type="main"
-                        isLocked={false}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={data[0].image}
-                        extraClass='ml-2 mt-4'
-                    />
-                </div>
-
-
-                <div className={classNames(styles.item)}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type="main"
-                        isLocked={false}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={data[0].image}
-                        extraClass='ml-2 mt-4'
-                    />
-                </div>
-
-
-                <div className={classNames(styles.item)}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type="main"
-                        isLocked={false}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={data[0].image}
-                        extraClass='ml-2 mt-4'
-                    />
-                </div>
-
-
-                <div className={classNames(styles.item)}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type="main"
-                        isLocked={false}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={data[0].image}
-                        extraClass='ml-2 mt-4'
-                    />
-                </div>
-
-
-                <div className={classNames(styles.item)}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type="main"
-                        isLocked={false}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={data[0].image}
-                        extraClass='ml-2 mt-4'
-                    />
-                </div>
-
-
-                <div className={classNames(styles.item)}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type="main"
-                        isLocked={false}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={data[0].image}
-                        extraClass='ml-2 mt-4'
-                    />
-                </div>
-
-                <div className={classNames(styles.item)}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type="main"
-                        isLocked={false}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={data[0].image}
-                        extraClass='ml-2 mt-4'
-                    />
-                </div>
-
-
-                <div className={classNames(styles.item)}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type="main"
-                        isLocked={false}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={data[0].image}
-                        extraClass='ml-2 mt-4'
-                    />
-                </div>
-
-
-                <div className={classNames(styles.item)}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type="main"
-                        isLocked={false}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={data[0].image}
-                        extraClass='ml-2 mt-4'
-                    />
-                </div>
-
-
-                <div className={classNames(styles.item)}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type="main"
-                        isLocked={false}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={data[0].image}
-                        extraClass='ml-2 mt-4'
-                    />
-                </div>
-
-
-                <div className={classNames(styles.item)}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type="main"
-                        isLocked={false}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={data[0].image}
-                        extraClass='ml-2 mt-4'
-                    />
-                </div>
-
-
-                <div className={classNames(styles.item)}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                        type="main"
-                        isLocked={false}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={data[0].image}
-                        extraClass='ml-2 mt-4'
-                    />
-                </div>
             </div>
 
 
@@ -236,4 +59,9 @@ export default function FoodItems() {
 
         </div>
     )
+}
+
+
+FoodItems.protoTypes = {
+    data: PropTypes.object
 }

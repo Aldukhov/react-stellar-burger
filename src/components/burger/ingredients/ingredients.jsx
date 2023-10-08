@@ -4,6 +4,7 @@ import {} from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 import Categories from './Categories/categories';
 import FoodItems from './Food-items/food-items';
+import PropTypes from 'prop-types';
 
 function Ingredients(props) {
     const scrollBunRef = useRef(null);
@@ -19,3 +20,11 @@ function Ingredients(props) {
 }
 
 export default Ingredients;
+
+
+Ingredients.protoTypes = {
+    data: PropTypes.object,
+    scrollBun: PropTypes.any,
+    scrollSauce: PropTypes.any,
+    scrollMain: PropTypes.any
+}

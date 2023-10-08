@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './appHeader.module.css';
 import { Logo, BurgerIcon, ProfileIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
-import globalStyles from '../../global-styles.module.css'
 
 function AppHeader() {
 

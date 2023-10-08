@@ -3,15 +3,20 @@ import styles from './constructor.module.css';
 import {} from '@ya.praktikum/react-developer-burger-ui-components'
 import Info from './Info/info';
 import FoodItems from './Food-Items/food-items';
+import PropTypes from 'prop-types';
 
-function BurgerConstructor() {
+function BurgerConstructor(props) {
 
         return (
             <section>
-                <FoodItems />
+                <FoodItems data={props.data}/>
                 <Info />
             </section>
         )
 }
 
 export default BurgerConstructor;
+
+BurgerConstructor.protoTypes = {
+    data: PropTypes.object
+}
