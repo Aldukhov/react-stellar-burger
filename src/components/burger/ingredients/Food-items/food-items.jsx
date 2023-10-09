@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import styles from './food-items.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from '../../../Modal/modal';
-import ModalOverlay from "../../../ModalOverlay/modalOverlay"; 
+import ModalOverlay from "../../../ModalOverlay/modalOverlay";
 import IngredientDetails from '../../../IngredientDetails/IngredientDetails';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -16,17 +16,18 @@ export default function FoodItems(props) {
     const openModal = (item) => {
         setSelectedItem(item);
         setIsModalOpen(true);
-      };
-    
-      const closeModal = () => {
+    };
+
+    const closeModal = () => {
         setIsModalOpen(false);
         setSelectedItem(null);
-        
-      };
+
+    };
 
     const renderItemsOfType = (type) => {
 
-        const filterType = props.dat.data.filter((element) => element.type === type);
+
+        const filterType = props.data.filter((element) => element.type === type);
 
 
         let items = filterType.map((element) => {
@@ -74,20 +75,41 @@ export default function FoodItems(props) {
             </div>
 
             {isModalOpen && (
-                <ModalOverlay onClick = {closeModal}>
-                    <Modal onClose ={closeModal} details={'ingridients'}>
-                        <IngredientDetails onClose ={closeModal} description={selectedItem}/>
-                     </Modal>
-                </ModalOverlay>
+                <>
+
+                    <Modal onClose={closeModal} details={'ingridients'}>
+                        <IngredientDetails onClose={closeModal} description={selectedItem} />
+                    </Modal>
+                    <ModalOverlay onClick={closeModal} />
+                </>
             )
             }
         </section>
     )
 }
 
+const itemPropTypes = PropTypes.shape({
+    calories: PropTypes.number.isRequired,
+    carbohydrates: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    image_large: PropTypes.string.isRequired,
+    image_mobile: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    proteins: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    __v: PropTypes.number.isRequired,
+    _id: PropTypes.string.isRequired,
+  });
+  
+  
+
+  
 FoodItems.protoTypes = {
-    data: PropTypes.object,
-    scrollBun: PropTypes.any,
-    scrollSauce: PropTypes.any,
-    scrollMain: PropTypes.any
+    data: itemPropTypes,
+
+    scrollBun: PropTypes.element,
+    scrollSauce: PropTypes.element,
+    scrollMain: PropTypes.element
 }

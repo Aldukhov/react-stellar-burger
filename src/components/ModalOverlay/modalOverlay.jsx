@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './modalOverlay.module.css'
 import PropTypes from 'prop-types';
@@ -6,32 +6,24 @@ const modalRoot = document.getElementById("root");
 
 export default function ModalOverlay(props) {
 
-    const {children, onClick}= props;
+    const { onClick } = props;
 
     const handleOverplayClose = (event) => {
-        onClick();
-    }
-
-    const handleEscClose = (evt) => {
-        if ((evt.key === 'Escape')) {
+        if (event.target.classList.contains(`${styles.overlay}`)) {
             onClick();
-          }
-
+        }
     }
 
-    useEffect(()=> {
-        document.addEventListener('click',handleOverplayClose)
-        document.addEventListener('keydown',handleEscClose)
-        return() => {
-            document.removeEventListener('click',handleOverplayClose)
-            document.removeEventListener('keydown',handleEscClose)
+    useEffect(() => {
+        document.addEventListener('click', handleOverplayClose)
+        return () => {
+            document.removeEventListener('click', handleOverplayClose)
         }
     })
 
     return ReactDOM.createPortal(
         (
             <div className={styles.overlay}>
-                {children}
             </div>
         ), modalRoot
 

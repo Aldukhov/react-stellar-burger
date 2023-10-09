@@ -20,7 +20,7 @@ export default function Categories(props) {
 
 
 Categories.protoTypes = {
-  scrollBun: PropTypes.any,
-  scrollSauce: PropTypes.any,
-  scrollMain: PropTypes.any
+  scrollBun: PropTypes.element,
+    scrollSauce: PropTypes.element,
+    scrollMain: PropTypes.element
 }

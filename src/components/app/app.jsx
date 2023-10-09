@@ -43,8 +43,8 @@ function App() {
                 ) : (
 
                     <>
-                    <Ingredients data={data} />
-                    <BurgerConstructor data={data}/>
+                    <Ingredients data = {data.data} />
+                    <BurgerConstructor data={data.data}/>
                     </>
                 )}
                 

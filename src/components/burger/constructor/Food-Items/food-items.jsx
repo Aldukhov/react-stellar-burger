@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 
 export default function FoodItems(props) {
 
-    const data = props.data.data;
-
     return (
         <div className={styles['items-block']}>
 
@@ -19,7 +17,7 @@ export default function FoodItems(props) {
                         isLocked={true}
                         text="Краторная булка N-200i (верх)"
                         price={200}
-                        thumbnail={data[0].image}
+                        thumbnail={props.data[0].image}
                         extraClass='ml-8'
                     />
                 </div>
@@ -35,7 +33,7 @@ export default function FoodItems(props) {
                         isLocked={false}
                         text="Краторная булка 3213123 (верх)"
                         price={200}
-                        thumbnail={data[0].image}
+                        thumbnail={props.data[0].image}
                         extraClass='mt-4 ml-2'
                     />
                 </div>
@@ -51,7 +49,7 @@ export default function FoodItems(props) {
                         isLocked={true}
                         text="Краторная булка N-200i (верх)"
                         price={200}
-                        thumbnail={data[0].image}
+                        thumbnail={props.data[0].image}
                         extraClass='ml-8'
                     />
                 </div>
@@ -62,6 +60,22 @@ export default function FoodItems(props) {
 }
 
 
+const itemPropTypes = PropTypes.shape({
+    calories: PropTypes.number.isRequired,
+    carbohydrates: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    image_large: PropTypes.string.isRequired,
+    image_mobile: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    proteins: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    __v: PropTypes.number.isRequired,
+    _id: PropTypes.string.isRequired,
+  });
+  
+
 FoodItems.protoTypes = {
-    data: PropTypes.object
+    data: itemPropTypes
 }

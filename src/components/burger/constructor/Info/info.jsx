@@ -1,10 +1,10 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import styles from './info.module.css';
-import { Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 import Modal from '../../../Modal/modal';
 import ModalOverlay from "../../../ModalOverlay/modalOverlay";
-import OrderDetails  from '../../../OrderDetails/OrderDetails';
+import OrderDetails from '../../../OrderDetails/OrderDetails';
 export default function Info() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,13 +13,13 @@ export default function Info() {
     const openModal = () => {
         setSelectedItem('order');
         setIsModalOpen(true);
-      };
-    
-      const closeModal = () => {
+    };
+
+    const closeModal = () => {
         setIsModalOpen(false);
         setSelectedItem(null);
-        
-      };
+
+    };
 
     return (
 
@@ -31,11 +31,12 @@ export default function Info() {
             </Button>
 
             {isModalOpen && (
-                <ModalOverlay onClick = {closeModal}>
-                    <Modal onClose ={closeModal} details={'order'}>
-                        <OrderDetails onClose ={closeModal}/>
-                     </Modal>
-                </ModalOverlay>
+                <>
+                    <ModalOverlay />
+                    <Modal onClose={closeModal} details={'order'}>
+                        <OrderDetails onClose={closeModal} />
+                    </Modal>
+                </>
             )
             }
         </div>
