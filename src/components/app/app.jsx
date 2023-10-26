@@ -1,10 +1,13 @@
 import styles from "./app.module.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useReducer } from "react";
 import AppHeader from "../appHeader/appHeader";
 import Ingredients from "../burger/ingredients/ingredients";
 import BurgerConstructor from "../burger/constructor/constructor";
 import { } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
+import { BurgerContext } from "../../services/burgerContext";
+import { PriceContext } from "../../services/priceContext";
+import burgerReducer from "../../services/reducers/burger";
 
 const apiUrl = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -12,11 +15,14 @@ function App() {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const initialState = [];
+    const [burgerElements, dispatch] = useReducer(burgerReducer, initialState);
+    const [price,setPrice] =useState(0);
 
     useEffect(() => {
         fetch(apiUrl)
             .then((response) => {
-                if (!response.ok) {
+                if (!response.ok) { 
                     throw new Error('Ошибка при загрузке данных');
                 }
                 return response.json();
@@ -43,8 +49,13 @@ function App() {
                 ) : (
 
                     <>
+                    <PriceContext.Provider value = {{price,setPrice}}>
+                    <BurgerContext.Provider value={{burgerElements,dispatch}}>
                     <Ingredients data = {data.data} />
-                    <BurgerConstructor data={data.data}/>
+
+                    <BurgerConstructor/>
+                    </BurgerContext.Provider>
+                    </PriceContext.Provider>
                     </>
                 )}
                 

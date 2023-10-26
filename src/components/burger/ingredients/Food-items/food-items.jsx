@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from './food-items.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from '../../../Modal/modal';
@@ -6,12 +6,15 @@ import ModalOverlay from "../../../ModalOverlay/modalOverlay";
 import IngredientDetails from '../../../IngredientDetails/IngredientDetails';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-
+import { BurgerContext } from '../../../../services/burgerContext';
+import { ADD_BUN, ADD_MAIN } from '../../../../services/actions/burger';
 
 export default function FoodItems(props) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
+
+    const { burgerElements, dispatch } = useContext(BurgerContext);
 
     const openModal = (item) => {
         setSelectedItem(item);
@@ -24,6 +27,22 @@ export default function FoodItems(props) {
 
     };
 
+
+    const addItem = (element) => {
+        const bunElement = burgerElements.find((el) => el.type === 'bun');
+
+        if (element.type === 'bun') {
+            if (bunElement === undefined) {
+                dispatch({  element , type: ADD_BUN});
+            }
+        } else {
+            dispatch({ type: ADD_MAIN, element });
+        }
+
+        console.log(burgerElements);
+
+    }
+
     const renderItemsOfType = (type) => {
 
 
@@ -32,7 +51,7 @@ export default function FoodItems(props) {
 
         let items = filterType.map((element) => {
             return (
-                <div className={classNames(styles.item)} key={element.id} onClick={() => openModal(element)}>
+                <div className={classNames(styles.item)} key={element.id} onClick={() => addItem(element)}>
                     <img className={classNames(styles.item__image, 'ml-3 mr-3')} src={element.image} alt={element.name} />
                     <div className={classNames(styles.item__price, 'mt-1 mb-1')}>
                         <p className={classNames('text text_type_digits-default', 'pr-2', styles.item__priceInfo)}>
@@ -101,11 +120,11 @@ const itemPropTypes = PropTypes.shape({
     type: PropTypes.string.isRequired,
     __v: PropTypes.number.isRequired,
     _id: PropTypes.string.isRequired,
-  });
-  
-  
+});
 
-  
+
+
+
 FoodItems.protoTypes = {
     data: itemPropTypes,
 

@@ -6,16 +6,6 @@ import PropTypes from 'prop-types';
 
 export default function OrderDetails(props) {
 
-    const orderNumber = () => {
-        const date = new Date();
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        const sec = String(date.getSeconds()).padStart(2, '0');
-        const formattedDate = `${hours}${minutes}${sec}`;
-
-        return formattedDate;
-    }
-
     return (
         (
             <>
@@ -24,7 +14,7 @@ export default function OrderDetails(props) {
                     </div>
                     <h1 className={classNames(styles['model-number'], 'text text_type_digits-large mb-8')}>
                         {
-                            orderNumber()
+                           props.number
                         }
                     </h1>
                     <p className={'text text_type_main-medium mb-15'}>Идентификатор заказа</p>
@@ -40,5 +30,6 @@ export default function OrderDetails(props) {
 
 
 OrderDetails.protoTypes = {
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+    number:  PropTypes.number
 }
