@@ -125,10 +125,10 @@ const itemPropTypes = PropTypes.shape({
 
 
 
-FoodItems.protoTypes = {
-    data: itemPropTypes,
+FoodItems.propTypes = {
+    data: PropTypes.arrayOf(itemPropTypes),
 
-    scrollBun: PropTypes.element,
-    scrollSauce: PropTypes.element,
-    scrollMain: PropTypes.element
+    scrollBun: PropTypes.object,
+    scrollSauce: PropTypes.object,
+    scrollMain: PropTypes.object
 }

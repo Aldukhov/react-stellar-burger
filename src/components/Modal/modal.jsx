@@ -35,7 +35,7 @@ export default function Modal(props) {
 }
 
 
-Modal.protoTypes = {
+Modal.propTypes = {
     onClose: PropTypes.func,
     details: PropTypes.string,
     children: PropTypes.elementType

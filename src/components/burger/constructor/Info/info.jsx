@@ -7,6 +7,7 @@ import ModalOverlay from "../../../ModalOverlay/modalOverlay";
 import OrderDetails from '../../../OrderDetails/OrderDetails';
 import { PriceContext } from '../../../../services/priceContext';
 import { BurgerContext } from '../../../../services/burgerContext';
+import checkResponse from '../../../../utils/checkRes';
 
 const api = 'https://norma.nomoreparties.space/api/orders';
 
@@ -31,12 +32,7 @@ export default function Info() {
                 ingredients: idsArray
             }),
         })
-        .then(response => {
-            if (!response.ok) {
-              throw new Error('Ошибка сети');
-            }
-            return response.json();
-          })
+        .then(checkResponse)
           .then(data => {
             setOrderNumber(data.order.number);
             openModal();

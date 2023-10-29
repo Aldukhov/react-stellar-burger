@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import { BurgerContext } from "../../services/burgerContext";
 import { PriceContext } from "../../services/priceContext";
 import burgerReducer from "../../services/reducers/burger";
+import checkResponse from "../../utils/checkRes";
 
 const apiUrl = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -21,12 +22,7 @@ function App() {
 
     useEffect(() => {
         fetch(apiUrl)
-            .then((response) => {
-                if (!response.ok) { 
-                    throw new Error('Ошибка при загрузке данных');
-                }
-                return response.json();
-            })
+            .then(checkResponse)
             .then((responseData) => {
                 setData(responseData);
                 setIsLoading(false);

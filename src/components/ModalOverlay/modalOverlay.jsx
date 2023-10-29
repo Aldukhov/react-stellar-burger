@@ -32,7 +32,7 @@ export default function ModalOverlay(props) {
 }
 
 
-ModalOverlay.protoTypes = {
+ModalOverlay.propTypes = {
     onClick: PropTypes.func,
     children: PropTypes.elementType
 }

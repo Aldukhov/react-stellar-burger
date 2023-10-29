@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import styles from './OrderDetails.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
@@ -29,7 +28,7 @@ export default function OrderDetails(props) {
 }
 
 
-OrderDetails.protoTypes = {
+OrderDetails.propTypes = {
     onClose: PropTypes.func,
     number:  PropTypes.number
 }

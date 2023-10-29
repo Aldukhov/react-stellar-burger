@@ -69,7 +69,7 @@ const itemPropTypes = PropTypes.shape({
 });
 
 
-RenderItemsOfType.protoTypes = {
+RenderItemsOfType.propTypes = {
     data: itemPropTypes,
     burger: PropTypes.string,
     type: PropTypes.string,

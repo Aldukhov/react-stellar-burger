@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './food-items.module.css';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { BurgerContext } from '../../../../services/burgerContext';
@@ -13,7 +12,7 @@ export default function FoodItems() {
     const [constructorTop, setConstructorTop] = useState(null);
     const [constructorMain, setConstructorMain] = useState([]);
     const [constructorBottom, setConstructorBottom] = useState(null);
-    const { price, setPrice } = useContext(PriceContext);
+    const {setPrice } = useContext(PriceContext);
 
     useEffect(() => {
 
@@ -107,6 +106,6 @@ const itemPropTypes = PropTypes.shape({
 });
 
 
-FoodItems.protoTypes = {
+FoodItems.propTypes = {
     data: itemPropTypes
 }

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from './tab-menu.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 
@@ -30,7 +29,7 @@ export default function Tabmenu(props) {
 }
 
 
-Tabmenu.protoTypes = {
+Tabmenu.propTypes = {
   scrollBun: PropTypes.any,
   scrollSauce: PropTypes.any,
   scrollMain: PropTypes.any

@@ -39,6 +39,6 @@ const itemPropTypes = PropTypes.shape({
   
 
   
-  Ingredients.protoTypes = {
-    data: itemPropTypes,
+  Ingredients.propTypes = {
+    data: PropTypes.arrayOf(itemPropTypes)
 }

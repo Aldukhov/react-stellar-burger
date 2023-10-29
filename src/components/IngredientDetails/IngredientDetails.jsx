@@ -41,7 +41,7 @@ export default function IngredientDetails(props) {
 }
 
 
-IngredientDetails.protoTypes = {
+IngredientDetails.propTypes = {
     onClose: PropTypes.func,
     description: PropTypes.object,
     children: PropTypes.elementType

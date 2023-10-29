@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import styles from './categories.module.css';
 import { } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
@@ -19,8 +18,8 @@ export default function Categories(props) {
 
 
 
-Categories.protoTypes = {
-  scrollBun: PropTypes.element,
-    scrollSauce: PropTypes.element,
-    scrollMain: PropTypes.element
+Categories.propTypes = {
+  scrollBun: PropTypes.object,
+    scrollSauce: PropTypes.object,
+    scrollMain: PropTypes.object
 }
