@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import styles from './food-items.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from '../../../Modal/modal';
-import ModalOverlay from "../../../ModalOverlay/modalOverlay";
 import IngredientDetails from '../../../IngredientDetails/IngredientDetails';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -99,7 +98,6 @@ export default function FoodItems(props) {
                     <Modal onClose={closeModal} details={'ingridients'}>
                         <IngredientDetails onClose={closeModal} description={selectedItem} />
                     </Modal>
-                    <ModalOverlay onClick={closeModal} />
                 </>
             )
             }

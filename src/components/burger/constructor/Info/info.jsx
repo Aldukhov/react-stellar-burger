@@ -65,7 +65,6 @@ export default function Info() {
 
             {isModalOpen && (
                 <>
-                    <ModalOverlay onClick={closeModal} />
                     <Modal onClose={closeModal} details={'order'}>
                         <OrderDetails onClose={closeModal} number={orderNumber}/>
                     </Modal>
