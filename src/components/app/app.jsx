@@ -6,45 +6,33 @@ import BurgerConstructor from "../burger/constructor/constructor";
 import { } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 
-const apiUrl = 'https://norma.nomoreparties.space/api/ingredients';
+import { useDispatch, useSelector } from "react-redux";
+import { fetchIngredients } from "../../services/asyncActions/ingredientsApi";
 
 function App() {
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+   
+    const dispatch = useDispatch();
+    const {items, itemsRequest, itemsFailed, error} = useSelector(state => state.burgerItems);
 
-    useEffect(() => {
-        fetch(apiUrl)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Ошибка при загрузке данных');
-                }
-                return response.json();
-            })
-            .then((responseData) => {
-                setData(responseData);
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                console.log('Ошибка при загрузке данных:', error);
-                setError(error);
-                setIsLoading(false);
-            });
-    }, []);
+    useEffect(
+        () => {
+        dispatch(fetchIngredients());
+    },[]
+    );
 
     return (
         <>
             <AppHeader />
             <main className={classNames(styles.main, 'mb-10')}>
-                {isLoading ? (
+                {itemsRequest ? (
                    console.log('Loading...')
-                ) : error ? (
-                    console.log(error.message)
+                ) : itemsFailed ? (
+                    console.log(error)
                 ) : (
 
                     <>
-                    <Ingredients data = {data.data} />
-                    <BurgerConstructor data={data.data}/>
+                    <Ingredients data = {items.data} />
+                    <BurgerConstructor data={items.data}/>
                     </>
                 )}
                 
