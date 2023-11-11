@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 function BurgerConstructor() {
 
         return (
-            <section>
+            <section className={styles}>
                 <FoodItems/>
                 <Info />
             </section>

@@ -3,24 +3,30 @@ import styles from './info.module.css';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 import Modal from '../../../Modal/modal';
-import ModalOverlay from "../../../ModalOverlay/modalOverlay";
 import OrderDetails from '../../../OrderDetails/OrderDetails';
-import { PriceContext } from '../../../../services/priceContext';
-import { BurgerContext } from '../../../../services/burgerContext';
 import checkResponse from '../../../../utils/checkRes';
+import { useDispatch, useSelector } from 'react-redux';
+import { CLEAN_ORDER } from '../../../../services/actions/constructor';
 
 const api = 'https://norma.nomoreparties.space/api/orders';
 
 export default function Info() {
 
-    const { price } = useContext(PriceContext);
+    const { items } = useSelector(state => state.constructorItem);
+    const dispatch = useDispatch();
+
+    const price = items.reduce((accum,currentItem)=>{
+     return accum + currentItem.price;
+    },0);
+
     const [orderNumber, setOrderNumber] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    const { burgerElements } = useContext(BurgerContext);
 
     const apiRequest = () => {
-        const idsArray = burgerElements.map(item => item._id);
+        const idsArray =  items.map((item)=>{
+            return item._id;
+        })
 
         fetch(api, {
             method: 'POST',
@@ -34,6 +40,7 @@ export default function Info() {
         })
         .then(checkResponse)
           .then(data => {
+            console.log(data);
             setOrderNumber(data.order.number);
             openModal();
           })
@@ -49,9 +56,12 @@ export default function Info() {
     };
 
     const closeModal = () => {
+        dispatch({
+            type: CLEAN_ORDER
+        })
         setIsModalOpen(false);
         setSelectedItem(null);
-
+       
     };
 
     return (

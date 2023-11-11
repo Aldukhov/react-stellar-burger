@@ -5,23 +5,21 @@ import PropTypes from 'prop-types';
 
 
 export default function Tabmenu(props) {
-  const [current, setCurrent] = useState('Булки');
-
+  
   const scrollToElement = (element) => {
-    console.log(element.current)
     element.current.scrollIntoView({ behavior: 'smooth' });
-    
   }
 
+  
   return (
-    <div className={styles['tab-menu']}>
-      <Tab value="Булки" active={current === 'Булки'} onClick={() => {setCurrent('Булки'); scrollToElement(props.scrollBun)}}>
+    <div className={styles['tab-menu']} ref={props.tabRef}>
+      <Tab value="Булки" active={props.current === 'Булки'} onClick={() => { props.setCurrent('Булки'); scrollToElement(props.scrollBun) }}>
         Булки
       </Tab>
-      <Tab value="Соусы" active={current === 'Соусы'} onClick={() => {setCurrent('Соусы'); scrollToElement(props.scrollSauce)}}>
+      <Tab value="Соусы" active={props.current === 'Соусы'} onClick={() => { props.setCurrent('Соусы'); scrollToElement(props.scrollSauce) }}>
         Соусы
       </Tab>
-      <Tab value="Начинки" active={current === 'Начинки'} onClick={() => {setCurrent('Начинки'); scrollToElement(props.scrollMain)}}>
+      <Tab value="Начинки" active={props.current === 'Начинки'} onClick={() => { props.setCurrent('Начинки'); scrollToElement(props.scrollMain) }}>
         Начинки
       </Tab>
     </div>

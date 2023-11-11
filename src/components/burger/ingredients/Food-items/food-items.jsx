@@ -1,94 +1,128 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './food-items.module.css';
-import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from '../../../Modal/modal';
 import IngredientDetails from '../../../IngredientDetails/IngredientDetails';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { BurgerContext } from '../../../../services/burgerContext';
-import { ADD_BUN, ADD_MAIN } from '../../../../services/actions/burger';
+import RenderItemsOfType from '../../renderItemsOfType/renderItemsOfType';
+import { useDispatch } from 'react-redux';
+import { ADD_ITEM, DELETE_ITEM } from '../../../../services/actions/modalItem';
+
 
 export default function FoodItems(props) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null);
+    const containerRef = useRef(null);
+    const dispatch = useDispatch();
 
-    const { burgerElements, dispatch } = useContext(BurgerContext);
+    const openModal = (element,toggleRef) => {
 
-    const openModal = (item) => {
-        setSelectedItem(item);
-        setIsModalOpen(true);
+        toggleRef = false;
+        
+            dispatch({
+                type: ADD_ITEM,
+                item: element
+            });
+
+            setIsModalOpen(true);
+
     };
 
     const closeModal = () => {
         setIsModalOpen(false);
-        setSelectedItem(null);
+
+        dispatch({
+            type: DELETE_ITEM
+        });
 
     };
 
 
-    const addItem = (element) => {
-        const bunElement = burgerElements.find((el) => el.type === 'bun');
+    const options = {
+        root: null,
+        rootMargin: "0px 0px 0px 0px",
+        threshold: 0,
+    };
 
-        if (element.type === 'bun') {
-            if (bunElement === undefined) {
-                dispatch({  element , type: ADD_BUN});
+
+    const handleIntersect = (entries) => {
+        let closestElement = null;
+        let minDistance = Number.MAX_SAFE_INTEGER;
+
+        entries.forEach((entry) => {
+            const element = entry.target;
+            const bounds = element.getBoundingClientRect();
+            const topDistance = Math.abs(bounds.top);
+
+            if (topDistance < minDistance) {
+                minDistance = topDistance;
+                closestElement = element;
             }
-        } else {
-            dispatch({ type: ADD_MAIN, element });
+        });
+
+        if (closestElement) {
+            // closestElement - это элемент, ближайший к области наблюдения
+            props.setCurrent(closestElement.id);
+        }
+    };
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(handleIntersect, options);
+        if (containerRef.current) {
+            // Отслеживаем каждый заголовок
+            const tabs = containerRef.current.querySelectorAll('.caption');
+            tabs.forEach((tab) => {
+                observer.observe(tab);
+            });
         }
 
-        console.log(burgerElements);
-
-    }
-
-    const renderItemsOfType = (type) => {
-
-
-        const filterType = props.data.filter((element) => element.type === type);
+        // Очистка ресурсов при размонтировании
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
 
 
-        let items = filterType.map((element) => {
-            return (
-                <div className={classNames(styles.item)} key={element.id} onClick={() => addItem(element)}>
-                    <img className={classNames(styles.item__image, 'ml-3 mr-3')} src={element.image} alt={element.name} />
-                    <div className={classNames(styles.item__price, 'mt-1 mb-1')}>
-                        <p className={classNames('text text_type_digits-default', 'pr-2', styles.item__priceInfo)}>
-                            {element.price}
-                        </p>
-                        <CurrencyIcon type="primary" />
-                    </div>
-                    <p className={classNames("text text_type_main-default", styles.item__itemInfo)}>
-                        {element.name}
-                    </p>
-                    <Counter count={1} size="default" extraClass="m-1" />
-                </div>
-            )
-        })
-
-        return items;
-    }
 
     return (
-        <section className={classNames('custom-scroll', styles['food-items'])}>
-            <div ref={props.scrollBun}>
-                <h2 className={classNames("text text_type_main-large")}>Булки</h2>
+        <section className={classNames('custom-scroll', styles['food-items'])} ref={containerRef}>
+            <div ref={props.scrollBun} >
+                <h2 className={classNames("text text_type_main-large caption")} id='Булки'>Булки</h2>
                 <section className={styles.items}>
-                    {renderItemsOfType('bun')}
+
+                    <RenderItemsOfType
+                        burger={'ingrediens'}
+                        type='bun'
+                        styles={styles}
+                        openModal={openModal}
+                    />
+
                 </section>
             </div>
 
-            <div ref={props.scrollSauce} className={"mt-10"}>
-                <h2 className={classNames("text text_type_main-large")}>Соусы</h2>
+            <div ref={props.scrollSauce} className={"mt-10"} >
+                <h2 className={classNames("text text_type_main-large caption")} id='Соусы' >Соусы</h2>
                 <section className={styles.items}>
-                    {renderItemsOfType("sauce")}
+
+                    <RenderItemsOfType
+                        burger={'ingrediens'}
+                        type="sauce"
+                        styles={styles}
+                        openModal={openModal}
+                    />
                 </section>
             </div>
 
             <div ref={props.scrollMain} className={"mt-10"}>
-                <h2 className={classNames("text text_type_main-large")}>Начинки</h2>
+                <h2 className={classNames("text text_type_main-large caption")} id="Начинки">Начинки</h2>
                 <section className={styles.items}>
-                    {renderItemsOfType('main')}
+
+                    <RenderItemsOfType
+                        burger={'ingrediens'}
+                        type='main'
+                        styles={styles}
+                        openModal={openModal}
+                    />
                 </section>
             </div>
 
@@ -96,7 +130,7 @@ export default function FoodItems(props) {
                 <>
 
                     <Modal onClose={closeModal} details={'ingridients'}>
-                        <IngredientDetails onClose={closeModal} description={selectedItem} />
+                        <IngredientDetails onClose={closeModal} />
                     </Modal>
                 </>
             )

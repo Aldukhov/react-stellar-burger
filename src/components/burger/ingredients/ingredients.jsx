@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef,useState } from 'react';
 import styles from './ingredients.module.css';
 import {} from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
@@ -6,15 +6,17 @@ import Categories from './Categories/categories';
 import FoodItems from './Food-items/food-items';
 import PropTypes from 'prop-types';
 
-function Ingredients(props) {
+function Ingredients() {
+    const tabRef = useRef(null);
     const scrollBunRef = useRef(null);
     const scrollSauceRef = useRef(null);
     const scrollMainRef = useRef(null);
+    const [current, setCurrent] = useState('Булки');
 
         return (
             <section className={classNames(styles.ingredients, 'mr-10')}>
-                <Categories scrollBun={scrollBunRef} scrollSauce = {scrollSauceRef} scrollMain = {scrollMainRef}/>
-                <FoodItems data={props.data} scrollBun={scrollBunRef} scrollSauce = {scrollSauceRef} scrollMain = {scrollMainRef}/>
+                <Categories scrollBun={scrollBunRef} scrollSauce = {scrollSauceRef} scrollMain = {scrollMainRef} tabRef = {tabRef} current={current} setCurrent = {setCurrent}/>
+                <FoodItems scrollBun={scrollBunRef} scrollSauce = {scrollSauceRef} scrollMain = {scrollMainRef} tabRef = {tabRef}  current={current} setCurrent = {setCurrent}/>
             </section>
         )
 }

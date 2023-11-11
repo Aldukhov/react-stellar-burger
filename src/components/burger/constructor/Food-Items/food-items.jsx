@@ -1,88 +1,98 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styles from './food-items.module.css';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { BurgerContext } from '../../../../services/burgerContext';
 import RenderItemsOfType from '../../renderItemsOfType/renderItemsOfType';
-import { PriceContext } from '../../../../services/priceContext';
+import { useSelector } from 'react-redux';
+import { useDrop } from 'react-dnd';
+import { useDispatch } from "react-redux";
+import { ADD_CONSTRUCTOR_ITEM, UPDATE_LIST_ITEM_START,UPDATE_LIST_ITEM_SUCCESS,UPDATE_LIST_ITEM_ERROR} from '../../../../services/actions/constructor';
+
 
 export default function FoodItems() {
 
-    const { burgerElements } = useContext(BurgerContext);
-    const [constructorTop, setConstructorTop] = useState(null);
-    const [constructorMain, setConstructorMain] = useState([]);
-    const [constructorBottom, setConstructorBottom] = useState(null);
-    const {setPrice } = useContext(PriceContext);
+    const { items } = useSelector(state => state.constructorItem);
+    const dispatch = useDispatch();
+
+    const [{ }, drop] = useDrop({
+        accept: ['main', 'bun'],
+        drop: (item) => {
+            dispatch({
+                type: ADD_CONSTRUCTOR_ITEM,
+                item: item
+            })
+        },
+    });
 
     useEffect(() => {
+    }, [items]); 
 
-      let burgerElement = burgerElements[burgerElements.length - 1];
-
-        if (burgerElements && burgerElements.length > 0) {
-            if (burgerElement.type === 'bun') {
-                setConstructorTop(<RenderItemsOfType
-                    data={burgerElements}
-                    burger={'const'}
-                    type='bun'
-                    location='top'
-                    styles={styles}
-                    isLocked={true}
-                    extraClass={'ml-8'}
-                />);
-
-                setPrice((prevPrice) => prevPrice + burgerElement.price);
-
-                setConstructorBottom(<RenderItemsOfType
-                    data={burgerElements}
-                    burger={'const'}
-                    type='bun'
-                    location='bottom'
-                    styles={styles}
-                    isLocked={true}
-                    extraClass={'ml-8'}
-                />);
-
-                setPrice((prevPrice) => prevPrice + burgerElement.price);
-            } else {
-                setConstructorMain(prevConstructorMain => {
-                    return [
-                        ...prevConstructorMain,
-                        <RenderItemsOfType
-                            data={burgerElements}
-                            burger={'const'}
-                            type='main'
-                            location='main'
-                            styles={styles}
-                            extraClass={'ml-2'}
-                            isLocked={false}
-                        />
-                    ];
-                });
-
-                setPrice((prevPrice) => prevPrice + burgerElement.price);
-            }
-        }
-
-    }, [burgerElements])
-
-
+    const moveItem = useCallback((from, to) => {
+        dispatch((dispatch) => {
+          dispatch({
+            type: UPDATE_LIST_ITEM_START,
+          });
+      
+          try {
+            const updatedItems = [...items];
+            const [movedItem] = updatedItems.splice(from, 1);
+            updatedItems.splice(to, 0, movedItem);
+      
+            dispatch({
+              type: UPDATE_LIST_ITEM_SUCCESS,
+              payload: updatedItems,
+            });
+          } catch (error) {
+            dispatch({
+              type: UPDATE_LIST_ITEM_ERROR,
+              payload: error.message,
+            });
+          }
+        });
+      }, [dispatch, items]);
 
     return (
-        <div className={styles['items-block']}>
+        <div className={styles['items-block']} ref={drop}>
+
 
             <div className={classNames(styles['item-block'], 'mt-25', styles['top-items'])}>
 
-                {constructorTop}
+                <RenderItemsOfType
+                    data={items}
+                    burger={'const'}
+                    type={'bun'}
+                    location={'top'}
+                    styles={styles}
+                    isLocked={true}
+                    extraClass={'ml-8'}
+                />
 
             </div>
 
             <div className={classNames(styles['item-block'], styles['main-items'], 'custom-scroll pr-3')}>
-                {constructorMain}
+
+
+                <RenderItemsOfType
+                    data = {items}
+                    burger={'const'}
+                    type={'main'}
+                    styles={styles}
+                    extraClass={'ml-2'}
+                    moveItem = {moveItem}
+                />
             </div>
 
             <div className={classNames(styles['item-block'], 'mt-4', styles['bottom-items'])}>
 
-                {constructorBottom}
+                <RenderItemsOfType
+                    data={items}
+                    burger={'const'}
+                    type={'bun'}
+                    location={'bottom'}
+                    styles={styles}
+                    isLocked={true}
+                    extraClass={'ml-8'}
+                />
             </div>
 
         </div>
@@ -109,3 +119,4 @@ const itemPropTypes = PropTypes.shape({
 FoodItems.propTypes = {
     data: itemPropTypes
 }
+

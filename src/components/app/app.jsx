@@ -1,57 +1,41 @@
 import styles from "./app.module.css";
-import React, { useEffect, useState,useReducer } from "react";
+import { useEffect} from "react";
 import AppHeader from "../appHeader/appHeader";
 import Ingredients from "../burger/ingredients/ingredients";
-import BurgerConstructor from "../burger/constructor/constructor";
 import { } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
-import { BurgerContext } from "../../services/burgerContext";
-import { PriceContext } from "../../services/priceContext";
-import burgerReducer from "../../services/reducers/burger";
-import checkResponse from "../../utils/checkRes";
-
-const apiUrl = 'https://norma.nomoreparties.space/api/ingredients';
+import BurgerConstructor from "../burger/constructor/constructor";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchIngredients } from "../../services/asyncActions/ingredientsApi";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const initialState = [];
-    const [burgerElements, dispatch] = useReducer(burgerReducer, initialState);
-    const [price,setPrice] =useState(0);
+    
+    const dispatch = useDispatch();
+    const {items, itemsRequest, itemsFailed, error} = useSelector(state => state.burgerItems);
+
 
     useEffect(() => {
-        fetch(apiUrl)
-            .then(checkResponse)
-            .then((responseData) => {
-                setData(responseData);
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                console.log('Ошибка при загрузке данных:', error);
-                setError(error);
-                setIsLoading(false);
-            });
-    }, []);
+        dispatch(fetchIngredients());
+    },[]);
+
 
     return (
         <>
             <AppHeader />
             <main className={classNames(styles.main, 'mb-10')}>
-                {isLoading ? (
+                {itemsRequest ? (
                    console.log('Loading...')
-                ) : error ? (
-                    console.log(error.message)
+                ) : itemsFailed ? (
+                    console.log(error)
                 ) : (
-
+                     
                     <>
-                    <PriceContext.Provider value = {{price,setPrice}}>
-                    <BurgerContext.Provider value={{burgerElements,dispatch}}>
-                    <Ingredients data = {data.data} />
-
-                    <BurgerConstructor/>
-                    </BurgerContext.Provider>
-                    </PriceContext.Provider>
+                    <DndProvider backend={HTML5Backend}>
+                    <Ingredients/>
+                  <BurgerConstructor/>
+                  </DndProvider>
                     </>
                 )}
                 

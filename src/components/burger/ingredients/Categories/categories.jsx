@@ -6,11 +6,12 @@ import PropTypes from 'prop-types';
 
 
 export default function Categories(props) {
+
   return (
     <section>
       <h2 className={classNames("text text_type_main-large pt-10")}>Соберите бургер</h2>
       <div className={classNames(styles.categories, 'pt-5 pb-10')}>
-        <Tabmenu scrollBun={props.scrollBun} scrollSauce={props.scrollSauce} scrollMain={props.scrollMain} />
+        <Tabmenu scrollBun={props.scrollBun} scrollSauce={props.scrollSauce} scrollMain={props.scrollMain} tabRef = {props.tabRef} current={props.current} setCurrent = {props.setCurrent}/>
       </div>
     </section>
   );
