@@ -13,7 +13,7 @@ export default function ConstructorIngredient (props ) {
     const ref = useRef(null);
 
     const [isDragging, drag] = useDrag({
-        type: 'main',
+        type: 'draggable-ingredient',
         item: { id: element.constructorId, index },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
@@ -21,7 +21,7 @@ export default function ConstructorIngredient (props ) {
     });
 
     const [{handlerId}, drop] = useDrop({
-        accept: 'main',
+        accept: 'draggable-ingredient',
         collect(monitor) {
             return {
                 handlerId: monitor.getHandlerId(),
@@ -38,7 +38,7 @@ export default function ConstructorIngredient (props ) {
                 return;
             }
 
-            const hoverBoundingRect = ref.current?.getBoundingClientRect();
+            const hoverBoundingRect = ref.current.getBoundingClientRect();
 
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
@@ -55,7 +55,7 @@ export default function ConstructorIngredient (props ) {
             }
             moveItem(dragIndex, hoverIndex);
 
-            element.index = hoverIndex;
+            draggedItem.index = hoverIndex;
         }
 
 
@@ -76,8 +76,9 @@ export default function ConstructorIngredient (props ) {
                 'mt-4': element && element.type !== 'bun',
             })}
             key={element.constructorId}
+            ref={element.type==='bun'? null : ref} data-handler-id={element.type==='bun'? null : handlerId}
         >
-            {element && element.type !== 'bun' ? <DragIcon type="primary" ref={ref} data-handler-id={handlerId}/> : null}
+            {element && element.type !== 'bun' ? <DragIcon type="primary"/> : null}
             <ConstructorElement
                 type={location}
                 isLocked={isLocked}
@@ -87,6 +88,7 @@ export default function ConstructorIngredient (props ) {
                 extraClass={element && extraClass}
                 handleClose={() => { handleClose(element) }}
                 index={index}
+                moveItem = {moveItem}
             />
         </div>
     )

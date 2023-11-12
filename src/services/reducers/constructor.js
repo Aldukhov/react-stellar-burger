@@ -1,9 +1,9 @@
-import { ADD_CONSTRUCTOR_ITEM, DELETE_CONSTRUCTOR_ITEM,CLEAN_ORDER , UPDATE_LIST_ITEM_START,UPDATE_LIST_ITEM_SUCCESS,UPDATE_LIST_ITEM_ERROR} from "../actions/constructor";
+import { ADD_CONSTRUCTOR_ITEM, DELETE_CONSTRUCTOR_ITEM, CLEAN_ORDER, UPDATE_LIST_ITEM_START, UPDATE_LIST_ITEM_SUCCESS, UPDATE_LIST_ITEM_ERROR } from "../actions/constructor";
 
 const initialState = {
     items: [],
-    isUpdating: false,  
-  updateError: null, 
+    isUpdating: false,
+    updateError: null,
 }
 
 
@@ -24,10 +24,10 @@ export const constructorItemReducer = (state = initialState, action) => {
             )
 
             if (state.items.length === 0 || !found) {
-                if(action.item.type === 'bun') {
+                if (action.item.type === 'bun') {
                     updatedItems.unshift(action.item);
                 } else {
-                updatedItems.push(action.item);
+                    updatedItems.push(action.item);
                 }
             }
 
@@ -36,43 +36,29 @@ export const constructorItemReducer = (state = initialState, action) => {
         }
         case DELETE_CONSTRUCTOR_ITEM: {
 
-            const updatedItems = state.items.filter((item)=>{
+            const updatedItems = state.items.filter((item) => {
                 return item !== action.item;
             })
             return { ...state, items: updatedItems }
         }
 
         case CLEAN_ORDER: {
-            return {...state, items: []}
+            return { ...state, items: [] }
         }
 
-        case UPDATE_LIST_ITEM_START: {
-            // Возвращаем состояние с флагом, сигнализирующим о начале обновления
+
+        case UPDATE_LIST_ITEM_SUCCESS: {
+            const { fromIndex, toIndex } = action.payload;
+            const updatedItems = [...state.items];
+            const [movedItem] = updatedItems.splice(fromIndex, 1);
+            updatedItems.splice(toIndex, 0, movedItem);
             return {
-              ...state,
-              isUpdating: true,
-              updateError: null, // Сбрасываем предыдущие ошибки
+                ...state,
+                items: updatedItems,
+                isUpdating: false,
+                updateError: null, // Сбрасываем ошибки
             };
-          }
-      
-          case UPDATE_LIST_ITEM_SUCCESS: {
-            // Возвращаем состояние с обновленным массивом и флагом об успешном обновлении
-            return {
-              ...state,
-              items: action.payload,
-              isUpdating: false,
-              updateError: null, // Сбрасываем ошибки
-            };
-          }
-      
-          case UPDATE_LIST_ITEM_ERROR: {
-            // Возвращаем состояние с флагом об ошибке
-            return {
-              ...state,
-              isUpdating: false,
-              updateError: action.payload, // Сохраняем текст ошибки
-            };
-          }
+        }
 
         default: {
             return state;

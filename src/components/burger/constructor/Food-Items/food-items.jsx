@@ -27,29 +27,16 @@ export default function FoodItems() {
     useEffect(() => {
     }, [items]); 
 
-    const moveItem = useCallback((from, to) => {
-        dispatch((dispatch) => {
-          dispatch({
-            type: UPDATE_LIST_ITEM_START,
-          });
-      
-          try {
-            const updatedItems = [...items];
-            const [movedItem] = updatedItems.splice(from, 1);
-            updatedItems.splice(to, 0, movedItem);
-      
+      const moveItem = useCallback(
+        (dragIndex, hoverIndex) => {
             dispatch({
-              type: UPDATE_LIST_ITEM_SUCCESS,
-              payload: updatedItems,
-            });
-          } catch (error) {
-            dispatch({
-              type: UPDATE_LIST_ITEM_ERROR,
-              payload: error.message,
-            });
-          }
-        });
-      }, [dispatch, items]);
+                type: UPDATE_LIST_ITEM_SUCCESS,
+                payload: {fromIndex: dragIndex, toIndex: hoverIndex},
+              });
+            
+        },
+        [dispatch]
+    );
 
     return (
         <div className={styles['items-block']} ref={drop}>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector} from 'react-redux';
 import Ingredient from '../ingredients/ingredient/ingredient';
 import ConstructorIngredient from '../constructor/ConstructorIngredient/constructorIngredient';
+import { constructorItemReducer } from '../../../services/reducers/constructor';
 
 export default function RenderItemsOfType(props) {
     const { items } = useSelector(state => state.burgerItems);
@@ -19,15 +20,22 @@ export default function RenderItemsOfType(props) {
         })
     }
     else {
+
+        const findBun = () => {
+            const result = props.data.find((element)=> element.type === 'bun')
+              
+            return result
+        }
         if (props.data.length > 0) {
             ingrediens = props.data
                 .filter((element) => element.constructorType === props.type)
                 .map((element, index) => (
 
                     <ConstructorIngredient 
+                    key={element.constructorId}
                     styles={props.styles} location={props.location} 
                     isLocked={props.isLocked} extraClass={props.extraClass} 
-                    element={element} index={index} moveItem = {props.moveItem}
+                    element={element} index={findBun()? index+1 : index} moveItem = {element.type==='bun'? null : props.moveItem}
                     />
                 ));
         }
