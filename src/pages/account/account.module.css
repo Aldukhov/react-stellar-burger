@@ -1,7 +1,7 @@
 .account {
   display: flex;
   margin-top: 120px;
-  padding-left: 320px;
+  padding-right: 320px;
 }
 
 .account__block-details {

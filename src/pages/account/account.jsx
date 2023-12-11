@@ -49,8 +49,7 @@ function Account() {
     navigate('/login', { replace: true })
   }
   return (
-    <section>
-      <form onSubmit={onFormSubmit} className={styles.account}> {/*Открытие формы*/}
+    <section className={styles.account}>
         <div className={'mr-15'}>
           <ul className={styles['account__block-details']}>
             <li className={classNames(styles.account__details)}>
@@ -69,6 +68,7 @@ function Account() {
           </span>
         </div>
 
+        <form onSubmit={onFormSubmit}>
         <div>
           <ul>
             <li>
