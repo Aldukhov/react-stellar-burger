@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import RenderItemsOfType from '../../renderItemsOfType/renderItemsOfType';
 import { useDispatch } from 'react-redux';
 import { ADD_ITEM, DELETE_ITEM } from '../../../../services/actions/modalItem';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 export default function FoodItems(props) {
 
@@ -15,16 +15,16 @@ export default function FoodItems(props) {
     const containerRef = useRef(null);
     const dispatch = useDispatch();
 
-    const openModal = (element,toggleRef) => {
+    const openModal = (element, toggleRef) => {
 
         toggleRef = false;
-        
-            dispatch({
-                type: ADD_ITEM,
-                item: element
-            });
 
-            setIsModalOpen(true);
+        dispatch({
+            type: ADD_ITEM,
+            item: element
+        });
+
+        setIsModalOpen(true);
 
     };
 
@@ -132,6 +132,7 @@ export default function FoodItems(props) {
                     <Modal onClose={closeModal} details={'ingridients'}>
                         <IngredientDetails onClose={closeModal} />
                     </Modal>
+
                 </>
             )
             }

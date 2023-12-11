@@ -1,16 +1,22 @@
-import React from 'react';
 import styles from './appHeader.module.css';
 import { Logo, BurgerIcon, ProfileIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
+import { useCallback } from "react";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function AppHeader() {
 
     return (
         <header className={classNames(styles.header)}>
             <nav className={classNames(`pt-4 pb-4`, styles.header__content)}>
-                <Navigation />
-                <Logo />
-                <Profile />
+                <Router>
+                   
+                        <Navigation />
+                        <Logo/>
+                        <Profile />
+
+                </Router>
             </nav>
         </header>
     )
@@ -19,12 +25,27 @@ function AppHeader() {
 
 function Navigation() {
 
+    const navigate = useNavigate();
+
+    const constructor = useCallback(
+        () => {
+            navigate('/', { replace: false });
+        }
+    )
+
+    const orderInfo = useCallback(
+        () => {
+            navigate('/', { replace: false });
+        }
+    )
+
+
     return (
 
         <div className={styles.navigation}>
             <ul className={styles.navigation__list}>
                 <li className={classNames('pt-4', 'pb-4', 'pl-5', 'pr-5', 'mr-2')}>
-                    <a href='#' className={styles.navigation__element}>
+                    <a href='#' className={styles.navigation__element} onClick={constructor}>
                         <div className={classNames(styles.icon, 'pr-2')}><BurgerIcon /></div>
                         <p className={classNames(`text text_type_main-default`)}>Конструктор</p>
                     </a>
@@ -42,12 +63,19 @@ function Navigation() {
 
 
 function Profile() {
+    const navigate = useNavigate();
+
+    const profile = useCallback(
+        () => {
+            navigate('/profile', { replace: false });
+        }
+    )
 
     return (
         <div className={styles.navigation}>
             <ul>
                 <li className={classNames(styles.navigation__element, 'pt-4', 'pb-4', 'pl-5', 'pr-5')}>
-                    <a href='#' className={styles.navigation__element}>
+                    <a href='#' className={styles.navigation__element} onClick={profile}>
                         <div className={classNames(styles.icon, 'pr-2')}><ProfileIcon /></div>
                         <p className={classNames(`text text_type_main-default`)}>Личный кабинет</p>
                     </a>
