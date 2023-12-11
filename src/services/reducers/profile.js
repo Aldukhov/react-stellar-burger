@@ -23,6 +23,7 @@ const initialState = {
     resetRequest: false,
     resetFailed: false,
     resetSuccess: false,
+    modifyUser: false
 }
 
 
@@ -42,7 +43,8 @@ export const participantProfileReducer = (state = initialState, action) => {
                 modifyForm: {
                     ...state.modifyForm,
                     [action.field]: action.value
-                }
+                },
+                modifyUser: true
             }
         }
         case GET_USER: {
@@ -71,6 +73,7 @@ export const participantProfileReducer = (state = initialState, action) => {
                 resetSuccess: true,
                 resetRequest: true,
                 resetFailed: false,
+                modifyUser:false
               };
         }
         case LOGOUT_USER: {
@@ -97,7 +100,8 @@ export const participantProfileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 resetSuccess: true,
-                resetRequest: false
+                resetRequest: false,
+                modifyUser: false
             }
         }
         default: {

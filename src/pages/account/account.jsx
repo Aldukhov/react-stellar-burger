@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import classNames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 import { VARIABLE_VALUES } from "../../services/actions/profile";
-import { setParticipantFormValue, profileUpdate,profileLogout,profile } from "../../services/actions/profile";
+import { setParticipantFormValue, profileUpdate, profileLogout, profile } from "../../services/actions/profile";
 import { useNavigate } from "react-router-dom";
 
 function Account() {
@@ -14,13 +14,16 @@ function Account() {
   useEffect(() => {
     dispatch(profile());
   }, []);
-  
+
   const {
     email,
     name,
     password,
   } = useSelector(state => state.profile.modifyForm);
 
+  const {
+    modifyUser
+  } = useSelector(state => state.profile);
 
   const onIconClick = () => {
 
@@ -43,21 +46,21 @@ function Account() {
 
   const logout = () => {
     dispatch(profileLogout());
-    navigate('/login', { replace: true})
+    navigate('/login', { replace: true })
   }
   return (
     <section>
-      <form onSubmit={onFormSubmit} className={styles.account}>
+      <form onSubmit={onFormSubmit} className={styles.account}> {/*Открытие формы*/}
         <div className={'mr-15'}>
           <ul className={styles['account__block-details']}>
             <li className={classNames(styles.account__details)}>
-              <button type = 'button' className={classNames(styles.account__details_button, 'text text_type_main-medium')}>Профиль</button>
+              <button type='button' className={classNames(styles.account__details_button, 'text text_type_main-medium')}>Профиль</button>
             </li>
             <li className={classNames(styles.account__details)}>
-              <button type = 'button' className={classNames(styles.account__details_button, 'text text_type_main-medium')}>История заказов</button>
+              <button type='button' className={classNames(styles.account__details_button, 'text text_type_main-medium')}>История заказов</button>
             </li>
             <li className={classNames(styles.account__details)}>
-              <button type = 'button' onClick={logout} className={classNames(styles.account__details_button, 'text text_type_main-medium')}>Выход</button>
+              <button type='button' onClick={logout} className={classNames(styles.account__details_button, 'text text_type_main-medium')}>Выход</button>
             </li>
           </ul>
 
@@ -122,16 +125,18 @@ function Account() {
 
           </ul>
 
-          <ul className={classNames(styles['account__block-details'], styles.edit, 'mt-6')}>
-            <li className={classNames(styles.account__details)}>
-              <button type="submit" className={classNames(styles.account__details_button, 'text text_type_main-medium', styles.account__details_button_edit)}>Сохранить</button>
-            </li>
-            <li className={classNames(styles.account__details)}>
-              <button type = 'button' className={classNames(styles.account__details_button, 'text text_type_main-medium', styles.account__details_button_edit)} onClick ={onCancelClick}>Отмена</button>
-            </li>
-          </ul>
+          {modifyUser ?
+            (<ul className={classNames(styles['account__block-details'], styles.edit, 'mt-6')}>
+              <li className={classNames(styles.account__details)}>
+                <button type="submit" className={classNames(styles.account__details_button, 'text text_type_main-medium', styles.account__details_button_edit)}>Сохранить</button>
+              </li>
+              <li className={classNames(styles.account__details)}>
+                <button type='button' className={classNames(styles.account__details_button, 'text text_type_main-medium', styles.account__details_button_edit)} onClick={onCancelClick}>Отмена</button>
+              </li>
+            </ul>) : null
+          }
         </div>
-      </form>
+      </form>  {/*Закрытие формы*/}
     </section>
   );
 }

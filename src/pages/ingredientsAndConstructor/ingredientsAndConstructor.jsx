@@ -11,7 +11,7 @@ import BurgerConstructor from "../../components/burger/constructor/constructor";
 function IngredientAndConstructor() {
 
     const dispatch = useDispatch();
-    const { items, itemsRequest, itemsFailed, error } = useSelector(state => state.burgerItems);
+    const {itemsRequest, itemsFailed, error } = useSelector(state => state.burgerItems);
 
 
     useEffect(() => {
@@ -24,7 +24,8 @@ function IngredientAndConstructor() {
             <section className={styles.section}>
 
                 {itemsRequest ? (
-                console.log('Loading...')
+                // add loading icon
+                console.log('Loading')
                 ) : itemsFailed ? (
                 console.log(error)
                 ) : (
