@@ -5,7 +5,7 @@ import { } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchIngredients } from "../../services/asyncActions/ingredientsApi";
-import { BrowserRouter as Router, Routes, Route ,useLocation} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 import Account from "../../pages/account/account";
 import Registration from "../../pages/registerPages/registration/registration";
@@ -43,7 +43,11 @@ function App() {
                         <Route path="/forgot-password" element={<AuthprotectedRouteElement element={<ForgotPassword />} />} />
                         <Route path="/reset-password" element={<AuthprotectedRouteElement element={<NewPassword />} />} />
                         <Route path="/profile" element={<ProtectedRouteElement element={<Account />} />} />
+                        <Route path="/profile/:section?" element={<ProtectedRouteElement element={<Account />} />} />
                         <Route path="/ingredients/:id" element={<ProtectedRouteElement element={<IngredientInfo />} />} />
+                        <Route path='/feed' element={<OrderFeed />} />
+                        <Route path='/feed/:number' element={<OrderInfo />} />
+                        <Route path='/profile/orders/:number' element={<ProtectedRouteElement element={<OrderInfo/>} />} />
 
                     </Routes>
                 </Router>

@@ -27,17 +27,15 @@ function Navigation() {
 
     const navigate = useNavigate();
 
-    const constructor = useCallback(
-        () => {
+    const constructor = () => {
             navigate('/', { replace: false });
         }
-    )
+    
 
-    const orderInfo = useCallback(
-        () => {
-            navigate('/', { replace: false });
+    const orderInfo =  () => {
+            navigate('/feed', { replace: false });
         }
-    )
+    
 
 
     return (
@@ -51,7 +49,7 @@ function Navigation() {
                     </a>
                 </li>
                 <li className={classNames('pt-4', 'pb-4', 'pl-5', 'pr-5')}>
-                    <a href='#' className={styles.navigation__element}>
+                    <a href='#' className={styles.navigation__element} onClick={orderInfo}>
                         <div className={classNames(styles.icon, 'pr-2')}><ListIcon /></div>
                         <p className={classNames(`text text_type_main-default`)}>Лента заказов</p>
                     </a>
@@ -65,11 +63,9 @@ function Navigation() {
 function Profile() {
     const navigate = useNavigate();
 
-    const profile = useCallback(
-        () => {
+    const profile = () => {
             navigate('/profile', { replace: false });
         }
-    )
 
     return (
         <div className={styles.navigation}>

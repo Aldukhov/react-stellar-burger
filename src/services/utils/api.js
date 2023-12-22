@@ -41,6 +41,19 @@ export const getNewToken = async () => {
 
     return await fetchData(url,options);
 }
+
+export const getOrderNumber = async (number) => {
+    const url=`${api}orders/${number}`
+
+    const options = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        }
+    }
+
+    return await fetchData(url,options);
+}
 /*
     fetch(`${api}auth/user`, {
         method: 'PATCH',

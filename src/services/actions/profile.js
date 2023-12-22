@@ -195,7 +195,7 @@ export const profileLogout = () => (dispatch) => {
 
 }
 
-const newToken = () => async (dispatch) => {
+export const newToken = () => async (dispatch) => {
     try {
         const { success, data } = await getNewToken();
 

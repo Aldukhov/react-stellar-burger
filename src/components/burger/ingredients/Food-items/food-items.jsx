@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import RenderItemsOfType from '../../renderItemsOfType/renderItemsOfType';
 import { useDispatch } from 'react-redux';
 import { ADD_ITEM, DELETE_ITEM } from '../../../../services/actions/modalItem';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 
 export default function FoodItems(props) {
 

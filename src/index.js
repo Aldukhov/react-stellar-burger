@@ -7,18 +7,20 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { rootReducer } from "./services/reducers/rootReducer";
 import thunk from 'redux-thunk';
-
 // Импортируем createRoot из "react-dom/client"
 import { createRoot } from 'react-dom/client';
+import { wsActions } from "./webSocketServices/actions";
+import { socketMiddleware } from "./webSocketServices/middleware/socketMiddleware";
+import thunkMiddleware from 'redux-thunk';
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
 
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+    const enhancer = composeEnhancers(applyMiddleware(thunkMiddleware, socketMiddleware(wsActions)));
 
-const store = createStore(rootReducer, enhancer);
+    const store = createStore(rootReducer, enhancer);
 
 const rootElement = document.createElement('div');
 rootElement.id = 'root';

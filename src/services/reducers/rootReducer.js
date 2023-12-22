@@ -8,6 +8,8 @@ import { participantResetReducer } from './resetPas';
 import { participantLoginReducer } from './login';
 import { participantProfileReducer } from './profile';
 
+import { wsReducer } from '../../webSocketServices/reducers/wsReducer';
+
 export const rootReducer = combineReducers({
     burgerItems: burgerItemsReducer,
     modalItem: modalItemReducer,
@@ -16,5 +18,6 @@ export const rootReducer = combineReducers({
     forgetForm: participantForgotReducer,
     resetForm: participantResetReducer,
     loginForm: participantLoginReducer,
-    profile: participantProfileReducer
+    profile: participantProfileReducer,
+    wsSocket: wsReducer
 })
