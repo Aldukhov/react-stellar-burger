@@ -1,22 +1,18 @@
-import { getCookie } from "../../services/utils/cookies";
-import { newToken } from "../../services/actions/profile";
-import { useDispatch } from "react-redux";
-import { DATA_FAILED } from "../../services/actions/profile";
+import { getCookie } from "./cookies";
+import { newToken } from "../actions/profile"; 
+import { DATA_FAILED } from "../actions/profile"; 
 
-const CheckTokensAsync = async () => {
-    const dispatch = useDispatch();
-
-    if (getCookie('accessToken') === undefined && getCookie('refreshToken') !== undefined) {
-      try {
-        await dispatch(newToken());
-      } catch (error) {
-        dispatch({
-          type: DATA_FAILED,
-        });
-        return;
-      }
+export const checkTokensAsync = async (dispatch) => {
+  if (getCookie('accessToken') === undefined && getCookie('refreshToken') !== undefined) {
+    try {
+      await dispatch(newToken());
+    } catch (error) {
+      dispatch({
+        type: DATA_FAILED,
+      });
+      return false; // Сигнал о неудаче
     }
-  };
+  }
 
-
-  export default CheckTokensAsync
+  return true; // Сигнал об успехе
+};
