@@ -6,6 +6,7 @@ import {
 } from "../constants/forgotPasswordForm"
 
 import { api } from '../../utils/constants';
+import { checkResponse } from "../../utils/checkRes";
 
 export const setParticipantFormValue = (field, value) => ({
     type: PARTICIPANT_FORGOT_PAS_FORM_SET_VALUE,
@@ -32,9 +33,8 @@ export const forgotPas = () => (dispatch, getState) => {
             email
         })
 
-    }).then(res => {
-        return res.json();
-    }).then(data => {
+    }).then(checkResponse)
+    .then(data => {
         if (data.success) {
             dispatch({
                 type: PARTICIPANT_FORGOT_FORM_SUBMIT_SUCCESS,

@@ -2,16 +2,19 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import classNames from 'classnames';
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
 
 function OrderDetails(props) {
     const { orders, styles } = props;
-
+    const { wsConnected, data } = useSelector(state => state.wsSocket)
+    const location = useLocation();
     useEffect(() => {
         // Проверяем наличие заказов перед использованием их данных
         if (orders && orders.length > 0) {
             setCount(orders[0].ingredients.length - 5);
         }
+        console.log(orders);
     }, [orders]);
 
     const [count, setCount] = useState(0);
@@ -43,7 +46,7 @@ function OrderDetails(props) {
     {
         return <ul className={classNames(styles.list, 'custom-scroll mr-15')}>
             {orders.length !== 0 ? orders.map(item => {
-                return (<Link to={`/feed/${item.number}`}>
+                return (<Link to={`/feed/${item.number}`} state={{ background: location }}  key={item._id}>
                     <li key={item._id} className={classNames(styles.item, 'p-6 mb-4 mr-2')}>
                         <div className={classNames(styles['item__order-details'], 'mb-6')}>
                             <p className={classNames(styles.item__id, "text text_type_digits-default")}>#{item.number}</p>

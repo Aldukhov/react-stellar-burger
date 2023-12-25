@@ -4,51 +4,68 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import classNames from 'classnames';
 import Modal from '../../../Modal/modal';
 import OrderDetails from '../../../OrderDetails/OrderDetails';
-import checkResponse from '../../../../utils/checkRes';
+import { checkResponse } from '../../../../utils/checkRes';
 import { useDispatch, useSelector } from 'react-redux';
 import { CLEAN_ORDER } from '../../../../services/actions/constructor';
-
-const api = 'https://norma.nomoreparties.space/api/orders';
+import { api } from '../../../../utils/constants';
+import { getCookie } from '../../../../services/utils/cookies';
+import { DATA_FAILED, newToken } from '../../../../services/actions/profile';
+import { useNavigate } from 'react-router-dom';
 
 export default function Info() {
 
+    const navigate = useNavigate();
     const { items } = useSelector(state => state.constructorItem);
     const dispatch = useDispatch();
 
-    const price = items.reduce((accum,currentItem)=>{
-     return accum + currentItem.price;
-    },0);
+    const price = items.reduce((accum, currentItem) => {
+        return accum + currentItem.price;
+    }, 0);
 
     const [orderNumber, setOrderNumber] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
 
-    const apiRequest = () => {
-        const idsArray =  items.map((item)=>{
-            return item._id;
-        })
+    const apiRequest = async () => {
+        const idsArray = items.map((item) => item._id);
+        const accessToken = getCookie('accessToken');
+    
+        if(getCookie('refreshToken') === undefined) {
+            navigate('/login',{ replace: false });
+        }
 
-        fetch(api, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        if (getCookie('accessToken') === undefined && getCookie('refreshToken') !== undefined) {
+            try {
+                await dispatch(newToken());
+            } catch (error) {
+                dispatch({
+                    type: DATA_FAILED,
+                });
+                return;
+            }
+        }
 
-            body: JSON.stringify({
-                ingredients: idsArray
-            }),
-        })
-        .then(checkResponse)
-          .then(data => {
-            console.log(data);
-            setOrderNumber(data.order.number);
-            openModal();
-          })
-          .catch(error => {
-            console.error('Ошибка запроса:', error);
-          });
-          
-    }
+            try {
+                const response = await fetch(`${api}orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: getCookie('accessToken'),
+                    },
+                    body: JSON.stringify({
+                        ingredients: idsArray,
+                    }),
+                });
+    
+                const data = await checkResponse(response);
+                console.log(data);
+                setOrderNumber(data.order.number);
+                openModal();
+            } catch (error) {
+                console.error('Ошибка запроса:', error);
+            }
+    };
+    
     const openModal = () => {
 
         setSelectedItem('order');
@@ -61,7 +78,7 @@ export default function Info() {
         })
         setIsModalOpen(false);
         setSelectedItem(null);
-       
+
     };
 
     return (
@@ -76,7 +93,7 @@ export default function Info() {
             {isModalOpen && (
                 <>
                     <Modal onClose={closeModal} details={'order'}>
-                        <OrderDetails onClose={closeModal} number={orderNumber}/>
+                        <OrderDetails onClose={closeModal} number={orderNumber} />
                     </Modal>
                 </>
             )

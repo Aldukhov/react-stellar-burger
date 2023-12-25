@@ -4,7 +4,7 @@ import {
     PARTICIPANT_REGISTER_FORM_SUBMIT_SUCCESS,
     PARTICIPANT_REGISTER_FORM_SUBMIT_FAILED
 } from '../constants/registerForm'
-
+import { checkResponse } from '../../utils/checkRes';
 import { api } from '../../utils/constants';
 
 export const setParticipantFormValue = (field, value) => ({
@@ -33,9 +33,7 @@ export const register = () => (dispatch, getState) => {
             name
         })
 
-    }).then(res => {
-        return res.json();
-    }).then(data => {
+    }).then(checkResponse).then(data => {
         if (data.success) {
             dispatch({
                 type: PARTICIPANT_REGISTER_FORM_SUBMIT_SUCCESS,

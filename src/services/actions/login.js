@@ -6,7 +6,7 @@ import {
 } from '../constants/login'
 import { setCookie } from '../utils/cookies';
 import { api } from '../../utils/constants';
-import { profile } from './profile';
+import { checkResponse } from '../../utils/checkRes';
 
 export const setParticipantFormValue = (field, value) => ({
     type: PARTICIPANT_LOGIN_FORM_SET_VALUE,
@@ -34,9 +34,7 @@ export const login = () => (dispatch, getState) => {
             password
         })
 
-    }).then(res => {
-        return res.json();
-    }).then(data => {
+    }).then(checkResponse).then(data => {
         if (data.success) {
             setCookie('accessToken', data.accessToken,20);
             setCookie('refreshToken', data.refreshToken,520);

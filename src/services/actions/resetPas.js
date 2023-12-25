@@ -6,6 +6,7 @@ import {
 } from "../constants/formResetPasConst";
 
 import { api } from '../../utils/constants';
+import { checkResponse } from "../../utils/checkRes";
 export const setParticipantFormValue = (field, value) => ({
     type: PARTICIPANT_RESET_PAS_SET_VALUE,
     field,
@@ -31,9 +32,7 @@ export const resetPas = () => (dispatch, getState) => {
             token
         })
 
-    }).then(res => {
-        return res.json();
-    }).then(data => {
+    }).then(checkResponse).then(data => {
         if (data.success) {
             dispatch({
                 type: PARTICIPANT_RESET_PAS_SUBMIT_SUCCESS,

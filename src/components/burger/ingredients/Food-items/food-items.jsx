@@ -125,17 +125,6 @@ export default function FoodItems(props) {
                     />
                 </section>
             </div>
-
-            {isModalOpen && (
-                <>
-
-                    <Modal onClose={closeModal} details={'ingridients'}>
-                        <IngredientDetails onClose={closeModal} />
-                    </Modal>
-
-                </>
-            )
-            }
         </section>
     )
 }

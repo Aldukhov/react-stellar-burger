@@ -2,7 +2,7 @@ import styles from "./orderFeed.module.css";
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 import { useState, useEffect } from "react";
-import { WS_CONNECTION_START } from "../../webSocketServices/actionType";
+import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../webSocketServices/actionType";
 import { useSelector, useDispatch } from "react-redux";
 import OrderDetails from "../../components/OrderDetailsFeed/orderDetails";
 
@@ -19,6 +19,13 @@ function OrderFeed() {
                 wsUrl: 'wss://norma.nomoreparties.space/orders/all'
             }
         });
+
+        return () => {
+            dispatch({
+                type: WS_CONNECTION_CLOSED,
+            });
+        }
+        
     }, []);
 
     const ordersStatus = (s) => {

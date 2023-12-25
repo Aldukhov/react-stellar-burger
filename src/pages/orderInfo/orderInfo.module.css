@@ -6,6 +6,13 @@
     margin-top: 122px;
 }
 
+.orderInfo__modal {
+    display: flex;
+    flex-direction: column;
+    max-width: 640px;
+    width: 100%;
+}
+
 .orderInfo__order-id {
     margin-left: auto;
     margin-right: auto;

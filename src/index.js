@@ -12,7 +12,7 @@ import { createRoot } from 'react-dom/client';
 import { wsActions } from "./webSocketServices/actions";
 import { socketMiddleware } from "./webSocketServices/middleware/socketMiddleware";
 import thunkMiddleware from 'redux-thunk';
-
+import { BrowserRouter as Router} from "react-router-dom";
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
@@ -30,9 +30,12 @@ document.body.appendChild(rootElement);
 const root = createRoot(rootElement);
 root.render(
   <React.StrictMode>
+    <Router>
     <Provider store={store}>
+      
       <App />
     </Provider>
+    </Router>
   </React.StrictMode>
 );
 

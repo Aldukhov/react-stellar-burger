@@ -3,10 +3,14 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 export default function IngredientDetails(props) {
 
-     const {item} = useSelector(state => state.modalItem);
+     const {id} = useParams();
+    const { items } = useSelector(state => state.burgerItems);
+    const item = items.data.find(item => item._id === id);
+
     return (
         (
             <>
@@ -44,7 +48,5 @@ export default function IngredientDetails(props) {
 
 
 IngredientDetails.propTypes = {
-    onClose: PropTypes.func,
-    description: PropTypes.object,
-    children: PropTypes.elementType
+    onClose: PropTypes.func
 }

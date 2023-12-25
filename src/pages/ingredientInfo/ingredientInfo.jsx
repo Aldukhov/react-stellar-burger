@@ -6,9 +6,8 @@ import { useParams } from "react-router-dom";
 
 function IngredientInfo() {
     const {id} = useParams();
-    const strippedId = id.substring(1);
     const { items } = useSelector(state => state.burgerItems);
-    const foundElement = items.data.find(item => item._id === strippedId);
+    const foundElement = items.data.find(item => item._id === id);
 
     return (
         <section className={styles.ingredient}>

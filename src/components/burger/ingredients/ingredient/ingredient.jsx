@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { useDrag } from 'react-dnd';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation, Link } from 'react-router-dom';
+
 const dateNow = () => {
     const now = new Date();
     const year = now.getFullYear();
@@ -30,6 +32,8 @@ export default function Ingredient(props) {
     const { styles, element, openModal } = props;
     const [isDragging, setIsDragging] = useState(false);
     const { items } = useSelector(state => state.constructorItem);
+    const location = useLocation();
+
     const [{ isDraggingMain }, dragMain] = useDrag({
         type: 'main',
         item: { ...element, constructorType: 'main', constructorId: dateNow() },
@@ -56,23 +60,32 @@ export default function Ingredient(props) {
         return filteredArray.length;
     }
     return (
-        <div
-            className={classNames(styles.item)}
-            key={element._id}
-            onClick={handleItemClick}
-            ref={element.type === 'bun' ? dragBun : dragMain}
 
+        <Link
+            key={element._id}
+            // Тут мы формируем динамический путь для нашего ингредиента
+            to={`/ingredients/${element._id}`}
+            // а также сохраняем в свойство background роут,
+            // на котором была открыта наша модалка
+            state={{ background: location }}
         >
-            <img className={classNames(styles.item__image, 'ml-3 mr-3')} src={element.image} alt={element.name} />
-            <div className={classNames(styles.item__price, 'mt-1 mb-1')}>
-                <p className={classNames('text text_type_digits-default', 'pr-2', styles.item__priceInfo)}>
-                    {element.price}
-                </p>
-                <CurrencyIcon type="primary" />
+            <div
+                className={classNames(styles.item)}
+                onClick={handleItemClick}
+                ref={element.type === 'bun' ? dragBun : dragMain}
+
+            >
+                <img className={classNames(styles.item__image, 'ml-3 mr-3')} src={element.image} alt={element.name} />
+                <div className={classNames(styles.item__price, 'mt-1 mb-1')}>
+                    <p className={classNames('text text_type_digits-default', 'pr-2', styles.item__priceInfo)}>
+                        {element.price}
+                    </p>
+                    <CurrencyIcon type="primary" />
+                </div>
+                <p className={classNames('text text_type_main-default', styles.item__itemInfo)}>{element.name}</p>
+                <Counter count={counter()} size="default" extraClass="m-1" />
             </div>
-            <p className={classNames('text text_type_main-default', styles.item__itemInfo)}>{element.name}</p>
-            <Counter count={counter()} size="default" extraClass="m-1" />
-        </div>
+        </Link>
     );
 }
 

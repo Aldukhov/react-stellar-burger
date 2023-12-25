@@ -4,11 +4,13 @@ import classNames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 import { FormattedDate, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Orders() {
 
     const { data } = useSelector(state => state.wsSocket)
+
+    const location = useLocation();
 
     const orders = data[0].orders;
 
@@ -45,8 +47,8 @@ function Orders() {
     {
         return <ul className={classNames(styles.list, 'custom-scroll mr-15')}>
             {orders.length !== 0 ? orders.map(item => {
-                return (<Link to={`/profile/orders/${item.number}`}>
-                    <li key={item._id} className={classNames(styles.item, 'p-6 mb-4 mr-2')}>
+                return (<Link to={`/profile/orders/${item.number}`} state={{ background: location }}  key={item._id}>
+                    <li className={classNames(styles.item, 'p-6 mb-4 mr-2')}>
                         <div className={classNames(styles['item__order-details'], 'mb-6')}>
                             <p className={classNames(styles.item__id, "text text_type_digits-default")}>#{item.number}</p>
                             <p

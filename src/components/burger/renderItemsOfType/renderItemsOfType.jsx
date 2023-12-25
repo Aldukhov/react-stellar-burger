@@ -7,8 +7,6 @@ import { constructorItemReducer } from '../../../services/reducers/constructor';
 
 export default function RenderItemsOfType(props) {
     const { items } = useSelector(state => state.burgerItems);
-
-    console.log(items);
         let ingrediens;
     if (props.burger === 'ingrediens') {
         
