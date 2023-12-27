@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getUser } from '../services/utils/api';
@@ -6,6 +6,7 @@ import { getUser } from '../services/utils/api';
 export const ProtectedRouteElement = ({ element }) => {
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const [isUserLoaded, setUserLoaded] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -24,5 +25,5 @@ export const ProtectedRouteElement = ({ element }) => {
     return null;
   }
 
-  return success ? element : <Navigate to="/login" replace/>;
+  return success ? element : <Navigate to="/login" state={{ from: location}}/>;
 }

@@ -1,6 +1,6 @@
 import styles from "./app.module.css";
 import { useEffect } from "react";
-import AppHeader from "../appHeader/appHeader";
+import AppHeader from "../appHeader/AppHeader";
 import { } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 import { useDispatch, useSelector } from "react-redux";
@@ -8,21 +8,20 @@ import { fetchIngredients } from "../../services/asyncActions/ingredientsApi";
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { DELETE_ITEM } from "../../services/actions/modalItem";
 
-import Account from "../../pages/account/account";
+import Account from "../../pages/account/Account";
 import Registration from "../../pages/registerPages/registration/registration";
 import SignIn from "../../pages/registerPages/signIn/signIn";
 import ForgotPassword from "../../pages/registerPages/forgotPassword/forgotPassword";
 import NewPassword from "../../pages/registerPages/newPassword/newPassword";
-import OrderInfo from "../../pages/orderInfo/orderInfo";
-import OrderFeed from "../../pages/orderFeed/orderFeed";
-import IngredientInfo from "../../pages/ingredientInfo/ingredientInfo";
-import IngredientAndConstructor from "../../pages/ingredientsAndConstructor/ingredientsAndConstructor";
-import Modal from "../Modal/modal";
+import OrderInfo from "../../pages/orderInfo/OrderInfo";
+import OrderFeed from "../../pages/orderFeed/OrderFeed";
+import IngredientAndConstructor from "../../pages/ingredientsAndConstructor/IngredientsAndConstructor";
+import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 
 
 import { ProtectedRouteElement } from "../protected-route";
-import { AuthprotectedRouteElement } from "../auth-protected-route";
+import { AuthprotectedRouteElement } from "../AuthProtectedRoute";
 
 function App() {
 
@@ -68,7 +67,7 @@ function App() {
                                 <Route path="/reset-password" element={<AuthprotectedRouteElement element={<NewPassword />} />} />
                                 <Route path="/profile" element={<ProtectedRouteElement element={<Account />} />} />
                                 <Route path="/profile/:section?" element={<ProtectedRouteElement element={<Account />} />} />
-                                <Route path="/ingredients/:id" element={<IngredientInfo />} />
+                                <Route path="/ingredients/:id" element={<IngredientDetails />} />
                                 <Route path='/feed' element={<OrderFeed />} />
                                 <Route path='/feed/:number' element={<OrderInfo description = {'block'}/>} />
                                 <Route path='/profile/orders/:number' element={<ProtectedRouteElement element={<OrderInfo  description = {'block'} />} />} />
@@ -82,7 +81,7 @@ function App() {
                                         path='/ingredients/:id'
                                         element={
                                             <Modal onClose={closeModal} details={'ingridients'}>
-                                                <IngredientDetails onClose={closeModal} />
+                                                <IngredientDetails />
                                             </Modal>
                                         }
                                     />

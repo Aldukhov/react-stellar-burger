@@ -4,7 +4,8 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import ModalOverlay
- from '../ModalOverlay/modalOverlay';
+    from '../ModalOverlay/ModalOverlay';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 const modalRoot = document.getElementById("root");
 
 export default function Modal(props) {
@@ -28,12 +29,13 @@ export default function Modal(props) {
 
 
     return ReactDOM.createPortal((
-        <>
-        <div className={classNames(styles['modal-block'], styles[`modal-block_${details}`], 'pt-10 pl-10 pr-10')}>
-            {children}
-        </div>
-        <ModalOverlay onClick={onClose} />
-        </>
+       <div>
+            <div className={classNames(styles['modal-block'], styles[`modal-block_${details}`], 'pt-10 pl-10 pr-10')}>
+           <div className ={styles['modal-closeIcon']}><CloseIcon type="primary" onClick={onClose}/></div> 
+                {children}
+            </div>
+            <ModalOverlay onClick={onClose} />
+       </div>
     ), modalRoot)
 
 }

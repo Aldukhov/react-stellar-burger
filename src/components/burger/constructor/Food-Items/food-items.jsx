@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styles from './food-items.module.css';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import RenderItemsOfType from '../../renderItemsOfType/renderItemsOfType';
+import RenderItemsOfType from '../../renderItemsOfType/RenderItemsOfType';
 import { useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { useDispatch } from "react-redux";

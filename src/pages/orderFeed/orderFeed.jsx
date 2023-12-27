@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { useState, useEffect } from "react";
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../webSocketServices/actionType";
 import { useSelector, useDispatch } from "react-redux";
-import OrderDetails from "../../components/OrderDetailsFeed/orderDetails";
+import OrderDetails from "../../components/OrderDetailsFeed/OrderDetails";
 
 function OrderFeed() {
 
@@ -29,7 +29,7 @@ function OrderFeed() {
     }, []);
 
     const ordersStatus = (s) => {
-        const statusOfOrder = data[0].orders.map(item => {
+        const statusOfOrder = data.orders.map(item => {
             if (item.status === s) {
                 return item;
             }
@@ -80,8 +80,9 @@ function OrderFeed() {
             <h1 className={classNames("text text_type_main-large mb-5")}>Лента заказов</h1>
 
             <div className={styles['order-feed']}>
-                {data.length !== 0 ? (<>
-                    <OrderDetails orders={data[0].orders} styles={styles} />
+                {Object.keys(data).length !== 0 ? (<>
+                   {console.log(data)}
+                    <OrderDetails orders={data.orders} styles={styles} />
 
                     <div className={classNames(styles.stats)}>
                         <div className={classNames(styles.board, 'mb-15')}>
@@ -102,10 +103,10 @@ function OrderFeed() {
                         </div>
 
                         <h2 className={'text text_type_main-medium'}>Выполнено за все время:</h2>
-                        <p className={classNames('text text_type_digits-large', styles['finished-orders-numbers'])}>{data[0].total}</p>
+                        <p className={classNames('text text_type_digits-large', styles['finished-orders-numbers'])}>{data.total}</p>
 
                         <h2 className={'text text_type_main-medium'}>Выполнено за сегодня:</h2>
-                        <p className={classNames('text text_type_digits-large', styles['finished-orders-numbers'])}>{data[0].totalToday}</p>
+                        <p className={classNames('text text_type_digits-large', styles['finished-orders-numbers'])}>{data.totalToday}</p>
                     </div>
                 </>) : null}
             </div>

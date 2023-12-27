@@ -1,11 +1,11 @@
 import styles from './IngredientDetails.module.css';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import {} from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-export default function IngredientDetails(props) {
+export default function IngredientDetails() {
 
      const {id} = useParams();
     const { items } = useSelector(state => state.burgerItems);
@@ -16,9 +16,8 @@ export default function IngredientDetails(props) {
             <>
                 <div className={classNames(styles['modal-header'],)}>
                     <h1 className={classNames('text text_type_main-large')}>Детали ингредиента</h1>
-                    <CloseIcon type="primary" onClick={props.onClose} />
                 </div>
-                <img src={item.image} className={classNames(styles['modal-img'], 'mb-4')}></img>
+                <img src={item.image} className={classNames(styles['modal-img'], 'mb-4')} alt={item.name}></img>
                 <p className={classNames('text text_type_main-medium mb-8')}>{item.name}</p>
                 <div className={classNames(styles['modal-nutritions'], 'mb-15')}>
                     <div className={classNames(styles['modal-nutrition'], 'mr-5')}>

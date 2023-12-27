@@ -8,9 +8,6 @@ export default function OrderDetails(props) {
     return (
         (
             <>
-                    <div className={styles['modal-close_btn']}>
-                        <CloseIcon type="primary" onClick={props.onClose} />
-                    </div>
                     <h1 className={classNames(styles['model-number'], 'text text_type_digits-large mb-8')}>
                         #{
                            props.number

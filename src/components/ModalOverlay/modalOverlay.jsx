@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './modalOverlay.module.css'
 import PropTypes from 'prop-types';
-const modalRoot = document.getElementById("root");
+
 
 export default function ModalOverlay(props) {
 
@@ -14,20 +14,12 @@ export default function ModalOverlay(props) {
         }
     }
 
-    useEffect(() => {
-        document.addEventListener('click', handleOverplayClose)
-        return () => {
-            document.removeEventListener('click', handleOverplayClose)
-        }
-    })
-
-    return ReactDOM.createPortal(
-        (
-            <div className={styles.overlay}>
+    return(
+            <div onClick={handleOverplayClose} className={styles.overlay}>
+                
             </div>
-        ), modalRoot
-
-    )
+        );
+    
 
 }
 

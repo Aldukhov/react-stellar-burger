@@ -42,8 +42,8 @@ function OrderInfo(props) {
       };
 
   
-    if (data.length !== 0) {
-        foundElement = data[0].orders.find(item =>
+    if (Object.keys(data).length !== 0) {
+        foundElement = data.orders.find(item =>
             item.number === Number(number));
 
             if(!foundElement) {
@@ -121,7 +121,7 @@ function OrderInfo(props) {
     return (
         <>
             {
-                data.length !== 0 && foundElement !== undefined ? (
+                Object.keys(data).length !== 0 && foundElement !== undefined ? (
                     <div className={styles[`orderInfo__${props.description}`]}> 
                         <p className={classNames(styles['orderInfo__order-id'], 'text text_type_digits-default mb-10')}>#{foundElement.number}</p>
                         

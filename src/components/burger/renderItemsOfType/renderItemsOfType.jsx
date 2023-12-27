@@ -1,8 +1,8 @@
 import {} from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types';
 import { useSelector} from 'react-redux';
-import Ingredient from '../ingredients/ingredient/ingredient';
-import ConstructorIngredient from '../constructor/ConstructorIngredient/constructorIngredient';
+import Ingredient from '../ingredients/ingredient/Ingredient';
+import ConstructorIngredient from '../constructor/ConstructorIngredient/ConstructorIngredient';
 import { constructorItemReducer } from '../../../services/reducers/constructor';
 
 export default function RenderItemsOfType(props) {

@@ -10,7 +10,7 @@ import {
 
 const initialState = {
     wsConnected: false,
-    data: [],
+    data: {},
     wsUrl: ''
 }
 
@@ -22,7 +22,7 @@ export const wsReducer = (state = initialState, action) => {
                 ...state,
                 wsUrl: action.payload
             }
-            case WS_CONNECTION_START_USER:
+        case WS_CONNECTION_START_USER:
             return {
                 ...state,
                 wsUrl: action.payload
@@ -48,11 +48,16 @@ export const wsReducer = (state = initialState, action) => {
 
 
         case WS_GET_DATA:
+
+            const obj = action.payload;
+            console.log(obj);
+
+
             return {
                 ...state,
-                data: state.data.length
-                    ? [...state.data, { ...action.payload }]
-                    : [{ ...action.payload }]
+                data: Object.keys(state.data).length !== 0
+                    ? { ...state.data, ...action.payload }
+                    : { ...action.payload }
             }
 
         default:

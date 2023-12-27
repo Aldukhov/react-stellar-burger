@@ -2,6 +2,7 @@ import { api } from '../../utils/constants';
 import { getUser } from '../utils/api';
 import { getCookie, deleteCookie, setCookie } from '../utils/cookies';
 import { getNewToken } from '../utils/api';
+import { checkResponse } from '../../utils/checkRes';
 export const GET_USER = 'GET_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const MODIFY_USER = 'MODIFY_USER';
@@ -70,8 +71,6 @@ export const profileUpdate = () => async (dispatch, getState) => {
             await dispatch(newToken()); 
             const { email, name } = getState().profile.modifyForm;
 
-            console.log(getCookie('accessToken'));
-
             const response = await fetch(`${api}auth/user`, {
                 method: 'PATCH',
                 headers: {
@@ -84,7 +83,7 @@ export const profileUpdate = () => async (dispatch, getState) => {
                 })
             });
 
-            const data = await response.json();
+            const data = await checkResponse(response);
 
             if (data.success) {
                 dispatch({
@@ -111,8 +110,6 @@ export const profileUpdate = () => async (dispatch, getState) => {
         
         const { email, name } = getState().profile.modifyForm;
 
-        console.log(getCookie('accessToken'));
-
         try {
             const response = await fetch(`${api}auth/user`, {
                 method: 'PATCH',
@@ -126,7 +123,7 @@ export const profileUpdate = () => async (dispatch, getState) => {
                 })
             });
 
-            const data = await response.json();
+            const data = await checkResponse(response);
 
             if (data.success) {
                 dispatch({

@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './constructor.module.css';
 import {} from '@ya.praktikum/react-developer-burger-ui-components'
-import Info from './Info/info';
-import FoodItems from './Food-Items/food-items';
+import Info from './Info/Info';
+import FoodItems from './Food-Items/Food-items';
 import PropTypes from 'prop-types';
 
 function BurgerConstructor() {

@@ -1,10 +1,11 @@
 import { getCookie } from "./cookies";
 import { api } from "../../utils/constants";
+import { checkResponse  } from "../../utils/checkRes";
 
 const fetchData = async (url, options) => {
     try {
         const response = await fetch(url, options);
-        const data = await response.json();
+        const data = await checkResponse(response);
         return { success: response.ok, data };
     } catch (error) {
         return { success: false, error };

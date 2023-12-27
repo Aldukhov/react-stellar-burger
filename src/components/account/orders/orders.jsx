@@ -12,7 +12,7 @@ function Orders() {
 
     const location = useLocation();
 
-    const orders = data[0].orders;
+    const orders = data.orders;
 
     useEffect(() => {
         // Проверяем наличие заказов перед использованием их данных
@@ -46,7 +46,7 @@ function Orders() {
     }
     {
         return <ul className={classNames(styles.list, 'custom-scroll mr-15')}>
-            {orders.length !== 0 ? orders.map(item => {
+            {Object.keys(data).length !== 0 ? orders.map(item => {
                 return (<Link to={`/profile/orders/${item.number}`} state={{ background: location }}  key={item._id}>
                     <li className={classNames(styles.item, 'p-6 mb-4 mr-2')}>
                         <div className={classNames(styles['item__order-details'], 'mb-6')}>

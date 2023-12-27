@@ -2,8 +2,8 @@ import React, { useRef,useState } from 'react';
 import styles from './ingredients.module.css';
 import {} from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
-import Categories from './Categories/categories';
-import FoodItems from './Food-items/food-items';
+import Categories from './Categories/Categories';
+import FoodItems from './Food-items/Food-items';
 import PropTypes from 'prop-types';
 
 function Ingredients() {

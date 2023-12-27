@@ -6,8 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { VARIABLE_VALUES } from "../../services/actions/profile";
 import { setParticipantFormValue, profileUpdate, profileLogout, profile } from "../../services/actions/profile";
 import { useNavigate, useParams } from "react-router-dom";
-import { WS_CONNECTION_START_USER } from "../../webSocketServices/actionType";
-import Orders from "../../components/account/orders/orders";
+import { WS_CONNECTION_START_USER,WS_CONNECTION_CLOSED } from "../../webSocketServices/actionType";
+import Orders from "../../components/account/orders/Orders";
 
 function Account() {
   const navigate = useNavigate();
@@ -26,6 +26,12 @@ function Account() {
         wsUrl: 'wss://norma.nomoreparties.space/orders'
     }
     });
+
+    return () => {
+      dispatch({
+          type: WS_CONNECTION_CLOSED,
+      });
+  }
   }, []);
 
   const {

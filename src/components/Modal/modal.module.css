@@ -30,3 +30,11 @@
     width: 720px;
     padding-bottom: 40px;
 }
+
+.modal-closeIcon {
+    top: 57px;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 40px;
+}

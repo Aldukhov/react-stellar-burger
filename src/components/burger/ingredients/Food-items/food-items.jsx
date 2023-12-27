@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './food-items.module.css';
-import Modal from '../../../Modal/modal';
+import Modal from '../../../Modal/Modal';
 import IngredientDetails from '../../../IngredientDetails/IngredientDetails';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import RenderItemsOfType from '../../renderItemsOfType/renderItemsOfType';
+import RenderItemsOfType from '../../renderItemsOfType/RenderItemsOfType';
 import { useDispatch } from 'react-redux';
 import { ADD_ITEM, DELETE_ITEM } from '../../../../services/actions/modalItem';
 
