@@ -8,6 +8,7 @@ export const socketMiddleware = (wsActions) => {
     return next => async action => {
       const { dispatch, getState } = store;
 
+      socket = null;
       const { type, payload } = action;
       const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage, wsInitUser } = wsActions;
 

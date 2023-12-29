@@ -5,14 +5,16 @@ import { useState, useEffect } from "react";
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../webSocketServices/actionType";
 import { useSelector, useDispatch } from "react-redux";
 import OrderDetails from "../../components/OrderDetailsFeed/OrderDetails";
+import { useLocation } from "react-router-dom";
 
 function OrderFeed() {
 
     const { wsConnected, data } = useSelector(state => state.wsSocket)
     const dispatch = useDispatch();
     const today = new Date();
-
+    const location = useLocation();
     useEffect(() => {
+
         dispatch({
             type: WS_CONNECTION_START,
             payload: {
@@ -26,7 +28,7 @@ function OrderFeed() {
             });
         }
         
-    }, []);
+    }, [location.pathname, location.state]);
 
     const ordersStatus = (s) => {
         const statusOfOrder = data.orders.map(item => {
