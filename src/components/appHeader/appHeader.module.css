@@ -2,7 +2,12 @@
     width:100%;
     margin-top: 40px;
 }
-
+.navigation {
+    margin-right: 132px;
+}
+.header__navAndLogo {
+    display: flex;
+}
 .header__content {
     display: flex;
     justify-content: space-between;

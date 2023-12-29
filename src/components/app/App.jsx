@@ -67,7 +67,7 @@ function App() {
                                 <Route path="/reset-password" element={<AuthprotectedRouteElement element={<NewPassword />} />} />
                                 <Route path="/profile" element={<ProtectedRouteElement element={<Account />} />} />
                                 <Route path="/profile/:section?" element={<ProtectedRouteElement element={<Account />} />} />
-                                <Route path="/ingredients/:id" element={<IngredientDetails />} />
+                                <Route path="/ingredients/:id" element={<IngredientDetails style={'mt-30'}/>} />
                                 <Route path='/feed' element={<OrderFeed />} />
                                 <Route path='/feed/:number' element={<OrderInfo description = {'block'}/>} />
                                 <Route path='/profile/orders/:number' element={<ProtectedRouteElement element={<OrderInfo  description = {'block'} />} />} />

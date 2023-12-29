@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useSelector} from 'react-redux';
 import Ingredient from '../ingredients/ingredient/Ingredient';
 import ConstructorIngredient from '../constructor/ConstructorIngredient/ConstructorIngredient';
-import { constructorItemReducer } from '../../../services/reducers/constructor';
 
 export default function RenderItemsOfType(props) {
     const { items } = useSelector(state => state.burgerItems);
@@ -35,6 +34,8 @@ export default function RenderItemsOfType(props) {
                     styles={props.styles} location={props.location} 
                     isLocked={props.isLocked} extraClass={props.extraClass} 
                     element={element} index={findBun()? index+1 : index} moveItem = {element.type==='bun'? null : props.moveItem}
+                    bunPosition = {props.bunPosition}
+    
                     />
                 ));
         }

@@ -70,6 +70,13 @@ export default function ConstructorIngredient (props ) {
         })
     }
 
+    const bunText = () => {
+        if(element.type==='bun') {
+            return element.name + ' ' + props.bunPosition;
+        } else {
+            return element.name
+        }
+    }
     return (
         <div
             className={classNames(styles.item, {
@@ -82,7 +89,7 @@ export default function ConstructorIngredient (props ) {
             <ConstructorElement
                 type={location}
                 isLocked={isLocked}
-                text={element && element.name}
+                text={element && bunText()}
                 price={element && element.price}
                 thumbnail={element && element.image}
                 extraClass={element && extraClass}
@@ -90,6 +97,7 @@ export default function ConstructorIngredient (props ) {
                 index={index}
                 moveItem = {moveItem}
             />
+
         </div>
     )
 };

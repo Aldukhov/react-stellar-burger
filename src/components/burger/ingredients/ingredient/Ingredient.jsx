@@ -2,7 +2,7 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { useDrag } from 'react-dnd';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
 
@@ -33,10 +33,12 @@ export default function Ingredient(props) {
     const [isDragging, setIsDragging] = useState(false);
     const { items } = useSelector(state => state.constructorItem);
     const location = useLocation();
-
+    
+    const {openPopup} = useSelector(state =>state.modalItem);  
+    
     const [{ isDraggingMain }, dragMain] = useDrag({
         type: 'main',
-        item: { ...element, constructorType: 'main', constructorId: dateNow() },
+        item:  { ...element, constructorType: 'main', constructorId: dateNow() },
         collect: (monitor) => ({
             isDraggingMain: monitor.isDragging(),
         }),
@@ -55,6 +57,9 @@ export default function Ingredient(props) {
     };
 
     const counter = () => {
+
+
+        console.log(items);
         const filteredArray = items.filter(item => element._id === item._id);
 
         return filteredArray.length;
@@ -68,11 +73,12 @@ export default function Ingredient(props) {
             // а также сохраняем в свойство background роут,
             // на котором была открыта наша модалка
             state={{ background: location }}
+           
         >
             <div
                 className={classNames(styles.item)}
-                onClick={handleItemClick}
                 ref={element.type === 'bun' ? dragBun : dragMain}
+                onClick={(event) => {handleItemClick(event)}}
 
             >
                 <img className={classNames(styles.item__image, 'ml-3 mr-3')} src={element.image} alt={element.name} />

@@ -11,7 +11,6 @@ import { ADD_ITEM, DELETE_ITEM } from '../../../../services/actions/modalItem';
 
 export default function FoodItems(props) {
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const containerRef = useRef(null);
     const dispatch = useDispatch();
 
@@ -24,19 +23,7 @@ export default function FoodItems(props) {
             item: element
         });
 
-        setIsModalOpen(true);
-
     };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-
-        dispatch({
-            type: DELETE_ITEM
-        });
-
-    };
-
 
     const options = {
         root: null,

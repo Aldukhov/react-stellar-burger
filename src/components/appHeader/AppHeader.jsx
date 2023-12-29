@@ -10,8 +10,10 @@ function AppHeader() {
   return (
     <header className={classNames(styles.header)}>
       <nav className={classNames(`pt-4 pb-4`, styles.header__content)}>
+        <div className={styles.header__navAndLogo}>
         <Navigation />
         <Logo />
+        </div>
         <Profile />
       </nav>
     </header>

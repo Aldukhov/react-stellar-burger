@@ -52,6 +52,7 @@ export default function FoodItems() {
                     styles={styles}
                     isLocked={true}
                     extraClass={'ml-8'}
+                    bunPosition = {'(вверх)'}
                 />
 
             </div>
@@ -79,6 +80,7 @@ export default function FoodItems() {
                     styles={styles}
                     isLocked={true}
                     extraClass={'ml-8'}
+                    bunPosition = {'(низ)'}
                 />
             </div>
 
