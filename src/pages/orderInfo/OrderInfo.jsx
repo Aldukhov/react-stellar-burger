@@ -1,10 +1,10 @@
 import styles from "./orderInfo.module.css";
-import { CurrencyIcon, FormattedDate} from '@ya.praktikum/react-developer-burger-ui-components'
+import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { WS_CONNECTION_START } from "../../webSocketServices/actionType";
+import { WS_CONNECTION_START,WS_CONNECTION_CLOSED } from "../../webSocketServices/actionType";
 import { getOrderNumber } from "../../services/utils/api";
 
 function OrderInfo(props) {
@@ -19,36 +19,42 @@ function OrderInfo(props) {
                 wsUrl: 'wss://norma.nomoreparties.space/orders/all'
             }
         });
+        return () => {
+            dispatch({
+                type: WS_CONNECTION_CLOSED,
+            });
+        }
+
     }, []);
 
     const { number } = useParams();
 
-    const {data } = useSelector(state => state.wsSocket)
+    const { data } = useSelector(state => state.wsSocket)
 
     const fetchOrderData = async () => {
 
         const result = await getOrderNumber(number);
-        
+
         if (result.success) {
-            if(result.orders) {
-          foundElement = result.orders;
+            if (result.orders) {
+                foundElement = result.orders;
             } else {
                 console.error('Нет номера заказа!');
             }
 
         } else {
-          console.error('Ошибка при получении данных о заказе:', result.error);
+            console.error('Ошибка при получении данных о заказе:', result.error);
         }
-      };
+    };
 
-  
+
     if (Object.keys(data).length !== 0) {
         foundElement = data.orders.find(item =>
             item.number === Number(number));
 
-            if(!foundElement) {
-             fetchOrderData()
-            }
+        if (!foundElement) {
+            fetchOrderData()
+        }
     }
 
     const { items } = useSelector(state => state.burgerItems);
@@ -99,7 +105,7 @@ function OrderInfo(props) {
             return (
                 <li className={classNames(styles.orderInfo__ingredient, 'mb-6')} key={item._id}>
                     <div className={styles.orderInfo__info}>
-                        <img src={item.image} className={classNames(styles.orderInfo__img, 'mr-4')} alt={item.name}/>
+                        <img src={item.image} className={classNames(styles.orderInfo__img, 'mr-4')} alt={item.name} />
                         <p className={classNames(styles['orderInfo__ingredient_name']
                             , 'text text_type_main-default')}>
                             {item.name}
@@ -122,9 +128,9 @@ function OrderInfo(props) {
         <>
             {
                 Object.keys(data).length !== 0 && foundElement !== undefined ? (
-                    <div className={styles[`orderInfo__${props.description}`]}> 
+                    <div className={styles[`orderInfo__${props.description}`]}>
                         <p className={classNames(styles['orderInfo__order-id'], 'text text_type_digits-default mb-10')}>#{foundElement.number}</p>
-                        
+
                         <h1 className={classNames(styles.orderInfo__name, 'text text_type_main-medium mb-3')}>{foundElement.name}</h1>
                         {(() => {
                             switch (foundElement.status) {
