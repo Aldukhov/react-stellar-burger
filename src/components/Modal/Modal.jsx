@@ -32,6 +32,7 @@ export default function Modal(props) {
        <div>
             <div className={classNames(styles['modal-block'], styles[`modal-block_${details}`], 'pt-10 pl-10 pr-10')}>
            <div className ={styles['modal-closeIcon']}><CloseIcon type="primary" onClick={onClose}/></div> 
+           {console.log('111', children)}
                 {children}
             </div>
             <ModalOverlay onClick={onClose} />

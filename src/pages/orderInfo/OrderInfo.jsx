@@ -36,8 +36,8 @@ function OrderInfo(props) {
         const result = await getOrderNumber(number);
 
         if (result.success) {
-            if (result.orders) {
-                foundElement = result.orders;
+            if (result.data.orders) {
+              return  foundElement = result.data.orders;
             } else {
                 console.error('Нет номера заказа!');
             }
@@ -48,7 +48,7 @@ function OrderInfo(props) {
     };
 
 
-    if (Object.keys(data).length !== 0) {
+    if (Object.keys(data).length !== 0 && foundElement === undefined) {
         foundElement = data.orders.find(item =>
             item.number === Number(number));
 

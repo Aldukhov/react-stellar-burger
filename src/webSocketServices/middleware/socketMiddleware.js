@@ -12,9 +12,12 @@ export const socketMiddleware = (wsActions) => {
       const { type, payload } = action;
       const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage, wsInitUser } = wsActions;
 
-      const wsUrl = payload && payload.wsUrl;
+      let wsUrl = payload && payload.wsUrl;
 
-      if (type === wsInit && !socket) {
+      if (type === wsInit) {
+        if (socket) {
+          socket.close();
+      }
         socket = new WebSocket(wsUrl);
       }
 

@@ -38,10 +38,11 @@ function App() {
     const { itemsRequest, itemsFailed, error } = useSelector(state => state.burgerItems);
 
     const closeModal = () => {
-        navigate(-1);
         dispatch({
             type: DELETE_ITEM
         });
+
+        navigate(-1);
     };
 
     return (

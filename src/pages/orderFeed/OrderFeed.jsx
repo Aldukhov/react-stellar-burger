@@ -9,10 +9,11 @@ import { useLocation } from "react-router-dom";
 
 function OrderFeed() {
 
-    const { wsConnected, data } = useSelector(state => state.wsSocket)
     const dispatch = useDispatch();
     const today = new Date();
     const location = useLocation();
+    const { wsConnected, data } = useSelector(state => state.wsSocket)
+    
     useEffect(() => {
 
         dispatch({
@@ -83,8 +84,8 @@ function OrderFeed() {
 
             <div className={styles['order-feed']}>
                 {Object.keys(data).length !== 0 ? (<>
-                   {console.log(data)}
-                    <OrderDetails orders={data.orders} styles={styles} />
+                   
+                    <OrderDetails styles={styles} />
 
                     <div className={classNames(styles.stats)}>
                         <div className={classNames(styles.board, 'mb-15')}>

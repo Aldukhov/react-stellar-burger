@@ -6,17 +6,11 @@ import { Link, useLocation } from 'react-router-dom';
 
 
 function OrderDetails(props) {
-    const { orders, styles } = props;
+    const { styles } = props;
     const { wsConnected, data } = useSelector(state => state.wsSocket)
+    const orders = data.orders; 
     const location = useLocation();
-    useEffect(() => {
-        // Проверяем наличие заказов перед использованием их данных
-        if (orders && orders.length > 0) {
-            setCount(orders[0].ingredients.length - 5);
-        }
-        console.log(orders);
-    }, [orders]);
-
+   
     const [count, setCount] = useState(0);
     const { items } = useSelector(state => state.burgerItems);
 
@@ -25,6 +19,9 @@ function OrderDetails(props) {
     }
 
 
+    const countItems = (ingredients) => {
+        setCount(ingredients.length - 5);
+    }
     const today = new Date();
 
 
@@ -82,7 +79,7 @@ function OrderDetails(props) {
 
                                                 {index === 5 && item.ingredients.length - 1 > index && (
                                                     <div className={styles.overlay}>
-                                                        <p className={"text text_type_main-default"}>+{count}</p>
+                                                        <p className={"text text_type_main-default"}>+{countItems(item.ingredients)}</p>
                                                     </div>
                                                 )}
                                             </div>
