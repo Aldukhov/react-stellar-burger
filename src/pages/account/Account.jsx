@@ -6,32 +6,37 @@ import { useSelector, useDispatch } from 'react-redux';
 import { VARIABLE_VALUES } from "../../services/actions/profile";
 import { setParticipantFormValue, profileUpdate, profileLogout, profile } from "../../services/actions/profile";
 import { useNavigate, useParams } from "react-router-dom";
-import { WS_CONNECTION_START_USER,WS_CONNECTION_CLOSED } from "../../webSocketServices/actionType";
+import { WS_CONNECTION_START_USER, WS_CONNECTION_CLOSED } from "../../webSocketServices/actionType";
 import Orders from "../../components/account/orders/Orders";
 
 function Account() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { section } = useParams();
-
+  const { socketUser, data } = useSelector(state => state.wsSocket)
   useEffect(() => {
     dispatch(profile());
   }, []);
 
   useEffect(() => {
 
-    dispatch({
-      type: WS_CONNECTION_START_USER,
-      payload: {
-        wsUrl: 'wss://norma.nomoreparties.space/orders'
-    }
-    });
-
-    return () => {
+    if (!socketUser) {
       dispatch({
-          type: WS_CONNECTION_CLOSED,
+        type: WS_CONNECTION_CLOSED,
+    });
+      dispatch({
+        type: WS_CONNECTION_START_USER,
+        payload: {
+          wsUrl: 'wss://norma.nomoreparties.space/orders'
+        }
       });
-  }
+
+      return () => {
+        dispatch({
+          type: WS_CONNECTION_CLOSED,
+        });
+      }
+    }
   }, []);
 
   const {
@@ -40,7 +45,7 @@ function Account() {
     password,
   } = useSelector(state => state.profile.modifyForm);
 
-  const { data } = useSelector(state => state.wsSocket)
+
 
   const {
     modifyUser
@@ -67,7 +72,7 @@ function Account() {
 
   const ordersList = () => {
     navigate('/profile/orders', { replace: false })
-  } 
+  }
 
   const profileNavigate = () => {
     navigate('/profile', { replace: false })

@@ -13,14 +13,6 @@ function Orders() {
     const location = useLocation();
 
     const orders = data.orders;
-
-    useEffect(() => {
-        // Проверяем наличие заказов перед использованием их данных
-        if (orders && orders.length > 0) {
-            setCount(orders[0].ingredients.length - 5);
-        }
-    }, [orders]);
-
     const [count, setCount] = useState(0);
     const { items } = useSelector(state => state.burgerItems);
 
@@ -28,7 +20,12 @@ function Orders() {
         return null;
     }
 
+    const countItems = (ingredients) => {
+        const countItem = ingredients.length - 5;
 
+        return countItem;
+    }
+ 
     function orderPrice(ingredients) {
 
         return ingredients.reduce((sum, ingredient) => {
@@ -95,7 +92,7 @@ function Orders() {
 
                                                 {index === 5 && item.ingredients.length - 1 > index && (
                                                     <div className={styles.overlay}>
-                                                        <p className={"text text_type_main-default"}>+{count}</p>
+                                                        <p className={"text text_type_main-default"}>+{countItems(item.ingredients)}</p>
                                                     </div>
                                                 )}
                                             </div>

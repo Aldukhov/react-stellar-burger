@@ -20,11 +20,11 @@ function OrderDetails(props) {
 
 
     const countItems = (ingredients) => {
-        setCount(ingredients.length - 5);
+        const countItem = ingredients.length - 5;
+
+        return countItem;
     }
-    const today = new Date();
-
-
+    
     function orderPrice(ingredients) {
 
         return ingredients.reduce((sum, ingredient) => {

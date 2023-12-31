@@ -11,25 +11,37 @@ function OrderFeed() {
 
     const dispatch = useDispatch();
     const today = new Date();
-    const location = useLocation();
-    const { wsConnected, data } = useSelector(state => state.wsSocket)
-    
+
+    const { socketUser, wsConnected, data } = useSelector(state => state.wsSocket)
+
+
     useEffect(() => {
+        if (socketUser) {
+            dispatch({
+                type: WS_CONNECTION_CLOSED,
+            });
+        }
 
-        dispatch({
-            type: WS_CONNECTION_START,
-            payload: {
-                wsUrl: 'wss://norma.nomoreparties.space/orders/all'
-            }
-        });
+    }, []);
 
+    useEffect(() => {
+        if (Object.keys(data).length === 0) {
+           
+            dispatch({
+                type: WS_CONNECTION_START,
+                payload: {
+                    wsUrl: 'wss://norma.nomoreparties.space/orders/all'
+                }
+            });
+
+        }
         return () => {
             dispatch({
                 type: WS_CONNECTION_CLOSED,
             });
         }
-        
-    }, [location.pathname, location.state]);
+
+    }, [socketUser]);
 
     const ordersStatus = (s) => {
         const statusOfOrder = data.orders.map(item => {
@@ -83,8 +95,8 @@ function OrderFeed() {
             <h1 className={classNames("text text_type_main-large mb-5")}>Лента заказов</h1>
 
             <div className={styles['order-feed']}>
-                {Object.keys(data).length !== 0 ? (<>
-                   
+                {Object.keys(data).length !== 0 && !socketUser ? (<>
+
                     <OrderDetails styles={styles} />
 
                     <div className={classNames(styles.stats)}>

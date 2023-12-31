@@ -11,7 +11,8 @@ import {
 const initialState = {
     wsConnected: false,
     data: {},
-    wsUrl: ''
+    wsUrl: '',
+    socketUser: false
 }
 
 
@@ -25,7 +26,8 @@ export const wsReducer = (state = initialState, action) => {
         case WS_CONNECTION_START_USER:
             return {
                 ...state,
-                wsUrl: action.payload
+                wsUrl: action.payload,
+                socketUser: true
             }
         case WS_CONNECTION_SUCCESS:
             return {
@@ -43,7 +45,9 @@ export const wsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 wsConnected: false,
-                data: []
+                data: [],
+                wsUrl: '',
+                socketUser:false
             };
 
 

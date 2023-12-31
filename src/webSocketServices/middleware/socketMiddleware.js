@@ -7,29 +7,30 @@ export const socketMiddleware = (wsActions) => {
 
     return next => async action => {
       const { dispatch, getState } = store;
-
-      socket = null;
       const { type, payload } = action;
       const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage, wsInitUser } = wsActions;
 
-      let wsUrl = payload && payload.wsUrl;
+      let wsUrlMiddle = payload && payload.wsUrl;
 
-      if (type === wsInit) {
-        if (socket) {
-          socket.close();
+
+      if(socket && onClose) {
+        socket = null;
+          console.log('onCloseCondition');
       }
-        socket = new WebSocket(wsUrl);
+      if (type === wsInit && !socket) {
+        socket = new WebSocket(wsUrlMiddle);
       }
+
+    
 
       if (type === wsInitUser && !socket) {
         const tokensCheckResult = await checkTokensAsync(dispatch);
         if (!tokensCheckResult) {
-          // Обработка ошибки проверки токена
           return;
         }
         const bearerToken = getCookie('accessToken');
         const [, token] = bearerToken.split(" ");         
-        socket = new WebSocket(`${wsUrl}?token=${token}`);
+        socket = new WebSocket(`${wsUrlMiddle}?token=${token}`);
       }
 
       if (socket) {
@@ -53,7 +54,7 @@ export const socketMiddleware = (wsActions) => {
         };
 
         socket.onclose = event => {
-          dispatch({ type: onClose, payload: event });
+          dispatch({ type: onClose});
           console.log('onClose');
         };
       }

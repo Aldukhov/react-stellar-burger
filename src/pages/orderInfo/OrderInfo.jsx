@@ -4,32 +4,33 @@ import classNames from 'classnames';
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { WS_CONNECTION_START,WS_CONNECTION_CLOSED } from "../../webSocketServices/actionType";
+import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../webSocketServices/actionType";
 import { getOrderNumber } from "../../services/utils/api";
 
 function OrderInfo(props) {
 
     const dispatch = useDispatch();
     let foundElement = undefined;
+    const { data } = useSelector(state => state.wsSocket)
 
     useEffect(() => {
-        dispatch({
-            type: WS_CONNECTION_START,
-            payload: {
-                wsUrl: 'wss://norma.nomoreparties.space/orders/all'
-            }
-        });
-        return () => {
-            dispatch({
-                type: WS_CONNECTION_CLOSED,
-            });
-        }
 
+        if (Object.keys(data).length === 0) {
+            dispatch({
+                type: WS_CONNECTION_START,
+                payload: {
+                    wsUrl: 'wss://norma.nomoreparties.space/orders/all'
+                }
+            });
+            return () => {
+                dispatch({
+                    type: WS_CONNECTION_CLOSED,
+                });
+            }
+        }
     }, []);
 
     const { number } = useParams();
-
-    const { data } = useSelector(state => state.wsSocket)
 
     const fetchOrderData = async () => {
 
@@ -37,7 +38,7 @@ function OrderInfo(props) {
 
         if (result.success) {
             if (result.data.orders) {
-              return  foundElement = result.data.orders;
+                return foundElement = result.data.orders;
             } else {
                 console.error('Нет номера заказа!');
             }
