@@ -2,35 +2,51 @@ import styles from "./orderInfo.module.css";
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../webSocketServices/actionType";
 import { getOrderNumber } from "../../services/utils/api";
 
 function OrderInfo(props) {
 
+    const { number } = useParams();
     const dispatch = useDispatch();
-    let foundElement = undefined;
+    const [foundElement,setFoundElement] = useState(null);
     const { data } = useSelector(state => state.wsSocket)
+    const { items } = useSelector(state => state.burgerItems);
 
     useEffect(() => {
 
-        if (Object.keys(data).length === 0) {
-            dispatch({
-                type: WS_CONNECTION_START,
-                payload: {
-                    wsUrl: 'wss://norma.nomoreparties.space/orders/all'
-                }
-            });
-            return () => {
+        const fetchData = async () => {
+            if (Object.keys(data).length === 0) {
                 dispatch({
-                    type: WS_CONNECTION_CLOSED,
+                    type: WS_CONNECTION_START,
+                    payload: {
+                        wsUrl: 'wss://norma.nomoreparties.space/orders/all'
+                    }
                 });
+                return () => {
+                    dispatch({
+                        type: WS_CONNECTION_CLOSED,
+                    });
+                }
+            }
+        };
+
+        fetchData();
+
+        if (!foundElement && Object.keys(data).length !== 0) {
+            const orderElement = data.orders.find(item =>
+                item.number === Number(number));
+            if (!orderElement) {
+                fetchOrderData();
+            } else {
+                setFoundElement(orderElement);
             }
         }
-    }, []);
 
-    const { number } = useParams();
+
+    }, [data]);
 
     const fetchOrderData = async () => {
 
@@ -38,27 +54,14 @@ function OrderInfo(props) {
 
         if (result.success) {
             if (result.data.orders) {
-                return foundElement = result.data.orders;
+                setFoundElement(result.data.orders[0]);
             } else {
                 console.error('Нет номера заказа!');
             }
-
         } else {
             console.error('Ошибка при получении данных о заказе:', result.error);
         }
     };
-
-
-    if (Object.keys(data).length !== 0 && foundElement === undefined) {
-        foundElement = data.orders.find(item =>
-            item.number === Number(number));
-
-        if (!foundElement) {
-            fetchOrderData()
-        }
-    }
-
-    const { items } = useSelector(state => state.burgerItems);
 
     function orderPrice(ingredients) {
 
@@ -128,7 +131,7 @@ function OrderInfo(props) {
     return (
         <>
             {
-                Object.keys(data).length !== 0 && foundElement !== undefined ? (
+                Object.keys(data).length !== 0 && foundElement ? (
                     <div className={styles[`orderInfo__${props.description}`]}>
                         <p className={classNames(styles['orderInfo__order-id'], 'text text_type_digits-default mb-10')}>#{foundElement.number}</p>
 
@@ -148,7 +151,8 @@ function OrderInfo(props) {
                         <p className={classNames(styles.orderInfo__ditails, 'text text_type_main-default mb-6')}>Состав:</p>
 
                         <ul className={classNames(styles.orderInfo__ingredients, 'mb-10 custom-scroll')}>
-                            {returnElements(foundElement.ingredients)}
+                            { 
+                            returnElements(foundElement.ingredients)}
                         </ul>
 
                         <div className={styles.timestamp}>
