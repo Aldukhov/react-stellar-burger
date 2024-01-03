@@ -6,12 +6,12 @@ import Categories from './Categories/Categories';
 import FoodItems from './Food-items/Food-items';
 import PropTypes from 'prop-types';
 
-function Ingredients() {
-    const tabRef = useRef(null);
-    const scrollBunRef = useRef(null);
-    const scrollSauceRef = useRef(null);
-    const scrollMainRef = useRef(null);
-    const [current, setCurrent] = useState('Булки');
+const Ingredients: React.FC =( ) =>{
+    const tabRef = useRef<HTMLDivElement>(null);
+    const scrollBunRef = useRef<HTMLDivElement>(null);
+    const scrollSauceRef = useRef<HTMLDivElement>(null);
+    const scrollMainRef = useRef<HTMLDivElement>(null);
+    const [current, setCurrent] = useState<string>('Булки');
 
         return (
             <section className={classNames(styles.ingredients, 'mr-10')}>
