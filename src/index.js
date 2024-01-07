@@ -13,14 +13,7 @@ import { wsActions } from "./webSocketServices/actions";
 import { socketMiddleware } from "./webSocketServices/middleware/socketMiddleware";
 import thunkMiddleware from 'redux-thunk';
 import { BrowserRouter as Router} from "react-router-dom";
-const composeEnhancers =
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-    : compose;
-
-    const enhancer = composeEnhancers(applyMiddleware(thunkMiddleware, socketMiddleware(wsActions)));
-
-    const store = createStore(rootReducer, enhancer);
+import {store} from "./services/store"
 
 const rootElement = document.createElement('div');
 rootElement.id = 'root';

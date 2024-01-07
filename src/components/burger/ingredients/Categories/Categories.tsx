@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Tabmenu from '../Tab-menu/Tab-menu';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ITabProps } from '../../types/TabProps';
+import { ITabProps } from '../../types/burgerInterfaces';
 
 const Categories: React.FC<ITabProps> = ({scrollSauce,scrollBun,scrollMain,tabRef,current,setCurrent}) => {
 

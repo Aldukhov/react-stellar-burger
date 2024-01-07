@@ -4,8 +4,9 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Ingredients from "../../components/burger/ingredients/Ingredients";
 import BurgerConstructor from "../../components/burger/constructor/Constructor";
+import React from "react";
 
-function IngredientAndConstructor() {
+const IngredientAndConstructor: React.FC = () => {
     return (     
             <section className={styles.section}>
                     <DndProvider backend={HTML5Backend}>
