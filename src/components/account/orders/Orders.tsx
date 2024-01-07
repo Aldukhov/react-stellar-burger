@@ -1,50 +1,54 @@
 import styles from "./orders.module.css";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import classNames from 'classnames';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "../../../services/hooks";
 import { FormattedDate, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState } from "react";
 import { Link, useLocation } from 'react-router-dom';
 
-function Orders() {
+const Orders: React.FC = () => {
 
     const { data } = useSelector(state => state.wsSocket)
 
     const location = useLocation();
 
     const orders = data.orders;
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState<number>(0);
     const { items } = useSelector(state => state.burgerItems);
 
     if (!orders || orders.length === 0) {
         return null;
     }
 
-    const countItems = (ingredients) => {
+    const countItems = (ingredients: string[]):number => {
         const countItem = ingredients.length - 5;
 
         return countItem;
     }
- 
-    function orderPrice(ingredients) {
+
+    function orderPrice(ingredients: string[]): number {
 
         return ingredients.reduce((sum, ingredient) => {
             const foundItem = items.data.find(item => item._id === ingredient);
-            return sum + foundItem.price;
+            if (foundItem) {
+                return sum + foundItem.price;
+            }
+            else return sum
         }, 0);
     }
 
-    function imageId(itemId) {
+    function imageId(itemId: string): string | undefined {
 
         const foundItem = items.data.find(item => item._id === itemId);
 
-        return foundItem.image;
-
+        if (foundItem) {
+            return foundItem.image;
+        } else return undefined
     }
     {
         return <ul className={classNames(styles.list, 'custom-scroll mr-15')}>
             {Object.keys(data).length !== 0 ? orders.map(item => {
-                return (<Link to={`/profile/orders/${item.number}`} state={{ background: location }}  key={item._id}>
+                return (<Link to={`/profile/orders/${item.number}`} state={{ background: location }} key={item._id}>
                     <li className={classNames(styles.item, 'p-6 mb-4 mr-2')}>
                         <div className={classNames(styles['item__order-details'], 'mb-6')}>
                             <p className={classNames(styles.item__id, "text text_type_digits-default")}>#{item.number}</p>
@@ -105,7 +109,7 @@ function Orders() {
 
                             <div className={classNames(styles['item__price-block'])}>
                                 <p className={classNames(styles[styles.item__price], "text text_type_digits-default mr-2")}>{orderPrice(item.ingredients)}</p>
-                                <CurrencyIcon />
+                                <CurrencyIcon type='primary' />
                             </div>
                         </div>
                     </li>
