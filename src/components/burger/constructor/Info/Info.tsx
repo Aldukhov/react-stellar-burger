@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState} from 'react';
 import styles from './info.module.css';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
@@ -85,7 +85,7 @@ const Info: React.FC = () => {
 
         <div className={classNames(styles.info, 'mt-10 mb-13')}>
             <div className={classNames(styles.info__price, 'mr-10')}><p className={classNames('text text_type_digits-medium', 'pr-2')}>{price}</p>
-                <CurrencyIcon type="primary" width={36} height={36} /> </div>
+                <CurrencyIcon type="primary" /> </div>
             <Button htmlType="button" type="primary" size="large" onClick={() => apiRequest()}>
                 Оформить заказ
             </Button>

@@ -1,28 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useEffect, useRef } from 'react';
 import styles from './food-items.module.css';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import RenderItemsOfType from '../../renderItemsOfType/RenderItemsOfType';
-import { useDispatch } from 'react-redux';
-import { ADD_ITEM, DELETE_ITEM } from '../../../../services/actions/modalItem';
 import { ITabProps, IIntersectionOptions } from '../../types/burgerInterfaces';
 
 const FoodItems: React.FC<ITabProps> = ({ scrollSauce, scrollBun, scrollMain, tabRef, setCurrent }) => {
 
     const containerRef = useRef<HTMLDivElement>(null);
-    const dispatch = useDispatch();
-
-    /*  const openModal = (element, toggleRef) => {
-  
-          toggleRef = false;
-  
-          dispatch({
-              type: ADD_ITEM,
-              item: element
-          });
-  
-      };
-  */
 
     const options: IIntersectionOptions = {
         root: null,
@@ -83,7 +67,7 @@ const FoodItems: React.FC<ITabProps> = ({ scrollSauce, scrollBun, scrollMain, ta
                     burger={'ingrediens'}
                     type='bun'
                     styles={styles}
-                //openModal={openModal}
+               
                 />
 
 
@@ -97,7 +81,7 @@ const FoodItems: React.FC<ITabProps> = ({ scrollSauce, scrollBun, scrollMain, ta
                     burger={'ingrediens'}
                     type="sauce"
                     styles={styles}
-                // openModal={openModal}
+                
                 />
 
             </div>
@@ -110,7 +94,7 @@ const FoodItems: React.FC<ITabProps> = ({ scrollSauce, scrollBun, scrollMain, ta
                     burger={'ingrediens'}
                     type='main'
                     styles={styles}
-                // openModal={openModal}
+                
                 />
 
             </div>

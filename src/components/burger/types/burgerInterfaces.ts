@@ -21,7 +21,7 @@ export interface IRenderItemsProps {
   readonly type: string;
   readonly styles: { [key: string]: string};
   data?: IConstructorItemType[];
-  readonly location?: string;
+  readonly location?:  "top" | "bottom" | undefined;
   isLocked?: boolean;
   extraClass?: string;
   bunPosition?: string;
@@ -34,7 +34,7 @@ readonly styles: { [key: string]: string}
 
 export interface IConstructorIngredientProps {
   styles:{ [key: string]: string};
-  location: string | undefined;
+  location: "top" | "bottom" | undefined;
   isLocked: boolean | undefined;
   extraClass: string | undefined;
   element: IConstructorItemType;

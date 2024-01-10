@@ -1,5 +1,4 @@
 import { } from '@ya.praktikum/react-developer-burger-ui-components'
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from '../../../services/hooks';
 import Ingredient from '../ingredients/ingredient/Ingredient';
 import ConstructorIngredient from '../constructor/ConstructorIngredient/ConstructorIngredient';

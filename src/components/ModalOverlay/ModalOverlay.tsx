@@ -1,7 +1,5 @@
-import React, { MouseEvent, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React, { MouseEvent} from 'react';
 import styles from './modalOverlay.module.css'
-import PropTypes from 'prop-types';
 
 interface IMOdalOverlayProps {
   onClick:() => void;
@@ -9,7 +7,7 @@ interface IMOdalOverlayProps {
 
 const ModalOverlay: React.FC <IMOdalOverlayProps> = ({onClick}) => {
 
-    const handleOverplayClose = (event: React.MouseEvent<HTMLDivElement> ):void => {
+    const handleOverplayClose = (event: MouseEvent<HTMLDivElement> ):void => {
         if (event.target instanceof HTMLDivElement && event.target.classList.contains(`${styles.overlay}`)) {
             onClick();
           }

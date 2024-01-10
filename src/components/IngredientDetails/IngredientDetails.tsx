@@ -1,7 +1,6 @@
 import styles from './IngredientDetails.module.css';
 import { } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useSelector } from '../../services/hooks';
 

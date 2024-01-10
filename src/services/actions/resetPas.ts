@@ -42,7 +42,7 @@ export const setParticipantFormValue = (field: string, value: string) => ({
 })
 
 
-export const resetPas:AppThunk = () => (dispatch: AppDispatch, getState: any) => {
+export const resetPas:AppThunk = () => (dispatch, getState) => {
     dispatch({
         type: PARTICIPANT_RESET_PAS_SUBMIT
     });

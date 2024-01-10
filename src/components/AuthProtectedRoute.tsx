@@ -1,10 +1,7 @@
-import { Navigate, useLocation, useMatch } from 'react-router-dom';
+import { Navigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../services/utils/api';
-import NewPassword from '../pages/registerPages/newPassword/newPassword';
-import { PARTICIPANT_FORGOT_FORM_SUBMIT_SUCCESS_OFF } from '../services/constants/forgotPasswordForm';
-import React, { ReactElement, ReactNode } from 'react';
+import  { ReactElement } from 'react';
 
  export const AuthprotectedRouteElement = ({ element }: { element: ReactElement }) => {
 

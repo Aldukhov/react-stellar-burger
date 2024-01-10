@@ -38,7 +38,7 @@ export const setParticipantFormValue = (field:string, value: string) => ({
 })
 
 
-export const register: AppThunk = () => (dispatch: AppDispatch, getState: any) => {
+export const register: AppThunk = () => (dispatch, getState) => {
     dispatch({
         type: PARTICIPANT_REGISTER_FORM_SUBMIT
     });

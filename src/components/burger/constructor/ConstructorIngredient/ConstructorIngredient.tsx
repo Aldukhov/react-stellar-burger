@@ -1,11 +1,10 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import { useDrag, useDrop } from 'react-dnd';
 import { useRef } from 'react';
 import { DELETE_CONSTRUCTOR_ITEM } from '../../../../services/actions/constructor';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../../../services/hooks';
 import { IConstructorIngredientProps } from '../../types/burgerInterfaces';
 import { IConstructorItemType } from '../../../../services/types/apiDataTypes';
 
@@ -100,8 +99,6 @@ const ConstructorIngredient: React.FC<IConstructorIngredientProps> = ({ styles, 
                 thumbnail={element && element.image}
                 extraClass={element && extraClass}
                 handleClose={() => { handleClose(element) }}
-                index={index}
-                moveItem = {moveItem}
             />
 
         </div>

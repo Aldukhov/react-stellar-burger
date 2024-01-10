@@ -1,10 +1,8 @@
 import styles from "./orderFeed.module.css";
-import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
-import React, { useState, useEffect } from "react";
+import React, {useEffect } from "react";
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../webSocketServices/actionType";
 import OrderDetails from "../../components/OrderDetailsFeed/OrderDetails";
-import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { IOrdersApi } from "../../services/types/apiDataTypes";
 

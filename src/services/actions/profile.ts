@@ -66,7 +66,7 @@ export const setParticipantFormValue = (field: string, value: string) => ({
 })
 
 
-export const profile: AppThunk = () => async (dispatch: AppDispatch) => {
+export const profile: AppThunk = () => async (dispatch) => {
     dispatch({
         type: SEND_AND_GET_DATA
     });
@@ -107,7 +107,7 @@ export const profile: AppThunk = () => async (dispatch: AppDispatch) => {
 };
 
 
-export const profileUpdate: AppThunk = () => async (dispatch: AppDispatch, getState: any) => {
+export const profileUpdate: AppThunk = () => async (dispatch, getState) => {
 
     dispatch({
         type: SEND_AND_GET_DATA
@@ -198,7 +198,7 @@ export const profileUpdate: AppThunk = () => async (dispatch: AppDispatch, getSt
 
 
 
-export const profileLogout: AppThunk = () => (dispatch: AppDispatch) => {
+export const profileLogout: AppThunk = () => (dispatch) => {
     dispatch({
         type: SEND_AND_GET_DATA
     });
@@ -239,7 +239,7 @@ export const profileLogout: AppThunk = () => (dispatch: AppDispatch) => {
 }
 
 
-  export const newToken: AppThunk = () => async (dispatch: AppDispatch) => {
+  export const newToken: AppThunk = () => async (dispatch) => {
     try {
         const { success, data }: { success: boolean, data?: INewTokenApi } = await getNewToken();
 

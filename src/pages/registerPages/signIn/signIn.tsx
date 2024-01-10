@@ -1,16 +1,16 @@
 import styles from "./../registration.module.css";
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
-import { useState, useCallback,useEffect } from "react";
+import { useState,useEffect, FormEvent } from "react";
 import { useNavigate } from 'react-router-dom';
 import { setParticipantFormValue, login } from "../../../services/actions/login";
-import React, {MouseEvent, ChangeEvent} from "react";
+import React, {ChangeEvent} from "react";
 import { useSelector, useDispatch }  from "../../../services/hooks";
 const SignIn: React.FC = () => {
 
     const navigate = useNavigate();
 
-    const [passwordType, setPasswordType] = useState<string>('password');
+    const [passwordType, setPasswordType] = useState<"text" | "password" | "email" | undefined>('password');
 
     const onIconClick = ():void => {
         setPasswordType(passwordType === 'text' ? 'password' : 'text');
@@ -40,7 +40,7 @@ const SignIn: React.FC = () => {
         dispatch(setParticipantFormValue(e.target.name, e.target.value))
     }
 
-    const onFormSubmit = (e: MouseEvent<HTMLFormElement>) => {
+    const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(login())
     }

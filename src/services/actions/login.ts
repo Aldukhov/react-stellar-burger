@@ -39,7 +39,7 @@ export const setParticipantFormValue = (field: string, value: string) => ({
 })
 
 
-export const login: AppThunk<void> = () => (dispatch: AppDispatch, getState: any) => {
+export const login: AppThunk<void> = () => (dispatch, getState) => {
     dispatch({
         type: PARTICIPANT_LOGIN_FORM_SUBMIT
     });

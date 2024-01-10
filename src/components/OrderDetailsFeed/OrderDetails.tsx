@@ -1,6 +1,6 @@
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from '../../services/hooks';
 

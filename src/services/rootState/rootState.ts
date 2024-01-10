@@ -23,7 +23,7 @@ type TApplicationActions =
 |TWsActions;
 
 export type AppThunk<TReturn = void> = ActionCreator<
-  ThunkAction<TReturn, Action, RootState, TApplicationActions>
+ThunkAction<TReturn, RootState, Action, TApplicationActions>
 >; 
 
 export type AppDispatch = typeof store.dispatch;

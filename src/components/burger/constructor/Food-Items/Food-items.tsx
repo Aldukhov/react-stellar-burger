@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, {useEffect} from 'react';
 import styles from './food-items.module.css';
 import classNames from 'classnames';
 import RenderItemsOfType from '../../renderItemsOfType/RenderItemsOfType';

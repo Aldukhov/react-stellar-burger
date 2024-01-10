@@ -1,8 +1,7 @@
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import { useDrag } from 'react-dnd';
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useState } from 'react';
 import { useSelector,useDispatch } from '../../../../services/hooks'; 
 import { useLocation, Link } from 'react-router-dom';
 import { ADD_ITEM} from '../../../../services/actions/modalItem';

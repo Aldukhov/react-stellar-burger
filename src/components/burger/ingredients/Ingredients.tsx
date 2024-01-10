@@ -4,7 +4,7 @@ import {} from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 import Categories from './Categories/Categories';
 import FoodItems from './Food-items/Food-items';
-import PropTypes from 'prop-types';
+
 
 const Ingredients: React.FC =( ) =>{
     const tabRef = useRef<HTMLDivElement>(null);

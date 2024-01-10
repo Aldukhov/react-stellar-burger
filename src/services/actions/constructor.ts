@@ -27,6 +27,10 @@ export interface IUpdateListItemStart {
 
 export interface IUpdateListItemSuccess {
     readonly type: typeof UPDATE_LIST_ITEM_SUCCESS;
+    readonly payload:{
+        fromIndex: number;
+        toIndex: number;
+    }
 }
 
 export interface IUpdateListItemError {

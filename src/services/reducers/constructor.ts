@@ -55,7 +55,7 @@ export const constructorItemReducer = (state = initialState, action: TCostructor
             return { ...state, items: [] }
         }
 
-        /*
+        
         case UPDATE_LIST_ITEM_SUCCESS: {
             const { fromIndex, toIndex } = action.payload;
             const updatedItems = [...state.items];
@@ -68,7 +68,7 @@ export const constructorItemReducer = (state = initialState, action: TCostructor
                 updateError: null, // Сбрасываем ошибки
             };
         }
-            */
+        
         default: {
             return state;
         }

@@ -1,10 +1,9 @@
 import styles from "./../registration.module.css";
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
-import React, { useState, useCallback,MouseEvent, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from 'react-router-dom';
 import { setParticipantFormValue, register } from "../../../services/actions/registerForm";
-import { getUser } from "../../../services/utils/api";
 import { useSelector,useDispatch } from "../../../services/hooks";
 
 const Registration: React.FC = () => {
@@ -35,7 +34,7 @@ const Registration: React.FC = () => {
             dispatch(setParticipantFormValue(e.target.name, e.target.value))
     }
 
-    const onFormSubmit = (e: MouseEvent<HTMLFormElement>) => {
+    const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(register())
     }

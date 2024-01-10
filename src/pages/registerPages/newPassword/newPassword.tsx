@@ -1,7 +1,7 @@
 import styles from "./../registration.module.css";
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
-import React, { useState, useEffect, ChangeEvent, MouseEvent } from "react";
+import React, { useState, useEffect, ChangeEvent,FormEvent } from "react";
 import { setParticipantFormValue, resetPas } from "../../../services/actions/resetPas";
 import { useNavigate } from 'react-router-dom';
 import { useSelector,useDispatch } from "../../../services/hooks";
@@ -35,7 +35,7 @@ const NewPassword: React.FC =() => {
         dispatch(setParticipantFormValue(e.target.name, e.target.value))
     }
 
-    const onFormSubmit = (e: MouseEvent<HTMLFormElement>):void => {
+    const onFormSubmit = (e: FormEvent<HTMLFormElement>):void => {
         e.preventDefault();
         dispatch(resetPas());
     }

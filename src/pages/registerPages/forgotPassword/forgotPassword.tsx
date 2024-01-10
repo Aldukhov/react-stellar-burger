@@ -3,7 +3,7 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import classNames from 'classnames';
 import { setParticipantFormValue,forgotPas } from "../../../services/actions/forgotPas";
 import { useNavigate } from 'react-router-dom';
-import React, {useEffect,MouseEvent, ChangeEvent} from 'react';
+import React, {useEffect,ChangeEvent, FormEvent} from 'react';
 import { useSelector,useDispatch} from "../../../services/hooks";
 
 const ForgotPassword: React.FC = () => {
@@ -20,7 +20,7 @@ const onFormChange = (e: ChangeEvent<HTMLInputElement>):void => {
     dispatch(setParticipantFormValue(e.target.name,e.target.value))
 }
 
-const onFormSubmit = (e: MouseEvent<HTMLFormElement>):void => {
+const onFormSubmit = (e: FormEvent<HTMLFormElement>):void => {
     e.preventDefault();
     dispatch(forgotPas());
 }

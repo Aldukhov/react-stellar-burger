@@ -49,7 +49,7 @@ export const setParticipantFormValue = (field: string, value: string) => ({
 
 
 
-export const forgotPas: AppThunk<void> = () => (dispatch:AppDispatch, getState: any) => {
+export const forgotPas: AppThunk<void> = () => (dispatch, getState) => {
     dispatch({
         type: PARTICIPANT_FORGOT_FORM_SUBMIT
     });

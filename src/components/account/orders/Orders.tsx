@@ -1,7 +1,7 @@
 import styles from "./orders.module.css";
-import React, { useEffect } from "react";
+import React from "react";
 import classNames from 'classnames';
-import { useSelector, useDispatch } from "../../../services/hooks";
+import { useSelector } from "../../../services/hooks";
 import { FormattedDate, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useState } from "react";
 import { Link, useLocation } from 'react-router-dom';

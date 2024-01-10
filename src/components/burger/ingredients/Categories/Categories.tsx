@@ -2,7 +2,6 @@ import styles from './categories.module.css';
 import { } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames';
 import Tabmenu from '../Tab-menu/Tab-menu';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { ITabProps } from '../../types/burgerInterfaces';
 
